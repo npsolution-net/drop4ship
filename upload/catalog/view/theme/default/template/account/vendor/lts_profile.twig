@@ -1,0 +1,91 @@
+{{ header }}
+<div class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+      <li>
+        <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
+  {% endif %}
+
+  {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+  {% endif %}
+
+  <div class="row">    
+    {{ lts_column_left }}
+    <div id="content" class="col-sm-9">
+      {{ lts_mobile_menu }}   
+      <div class="lts-dashboard-wrap">
+        <div class="row">
+          <div class="col-sm-12 lts-products">
+
+            <div class="panel panel-default">
+              <div class="panel-heading clearfix"><span>{{ text_form }}</span>
+                <div class="pull-right">
+                  <button type="submit" form="form-vendor-profile" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+
+
+                </div>
+              </div>
+            </div>
+
+            <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-vendor-profile" class="form-horizontal">
+                  <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-name">{{ entry_firstname }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="firstname" class="form-control" value="{{ firstname }}" placeholder="{{ entry_firstname }}"> 
+                      {% if error_firstname %}
+                        <div class="text-danger">{{ error_firstname }}</div>
+                      {% endif %}
+                    </div>
+                  </div> 
+
+                  <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-name">{{ entry_lastname }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="lastname" class="form-control" value="{{ lastname }}" placeholder="{{ entry_lastname }}"> 
+                      {% if error_lastname %}
+                        <div class="text-danger">{{ error_lastname }}</div>
+                      {% endif %}
+                    </div>
+                  </div>   
+
+                    <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-name">{{ entry_email }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="email" class="form-control" value="{{ email }}" placeholder="{{ entry_email }}"> 
+                      {% if error_email %}
+                        <div class="text-danger">{{ error_email }}</div>
+                      {% endif %}
+                    </div>
+                  </div>   
+
+
+                  <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-name">{{ entry_telephone }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="telephone" class="form-control" value="{{ telephone }}" placeholder="{{ entry_telephone }}"> 
+                      {% if error_telephnoe %}
+                        <div class="text-danger">{{ error_telephone }}</div>
+                      {% endif %}
+                    </div>
+                  </div>   
+
+
+
+            </form>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

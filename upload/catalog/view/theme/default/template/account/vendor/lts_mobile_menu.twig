@@ -1,0 +1,48 @@
+<nav id="menu" class="navbar">
+    <div class="navbar-header"><span id="vendor-menus" class="visible-xs">Vendor Menus</span>
+      <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse"><i class="fa fa-bars"></i></button>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex2-collapse">
+      <ul class="nav navbar-nav">
+     
+      <li><a href="{{ dashboard }}" id="lts-dashboard"><i data-toggle="tooltip" title="{{ text_dashboard }}" class="fa fa-dashboard fa-fw"></i><span>{{ text_dashboard }}</span></a></li>
+
+        <li><a href="{{ profile }}"><i data-toggle="tooltip" title="{{ text_profile }}" class="fa fa-user"></i> <span>{{ text_profile }}</span></a></li>
+
+        <li><a href="{{ category }}"><i data-toggle="tooltip" title="{{ text_category }}" class="fa fa-list-alt"></i> <span>{{ text_category }}</span></a></li>
+
+        <li><a href="{{ product }}" class="{% if route=='vendor/lts_product' %} active {% endif %}"><i data-toggle="tooltip" title="{{ text_product }}" class="fa fa-briefcase"></i> <span>{{ text_product }}</span></a></li>
+
+        
+        <li><a href="{{ download }}"><i data-toggle="tooltip" title="{{ text_download }}" class="fa fa-download"></i> <span>{{ text_download }}</span></a></li>
+
+        <li><a href="{{ order }}"><i data-toggle="tooltip" title="{{ text_order }}" class="fa fa-shopping-cart"></i> <span>{{ text_order }}</span></a></li>
+
+        {% if review %}
+        <li><a href="{{ review }}"><i data-toggle="tooltip" title="{{ text_review }}" class="fa fa-comment"></i> <span>{{ text_review }}</span></a></li>
+        {% endif %}
+
+        {# <li><a href="{{ commission }}"><i data-toggle="tooltip" title="{{ text_commission }}" class="fa fa-money"></i> <span>{{ text_commission }}</span></a></li> #}
+
+        <li><a href="{{ filter }}"><i data-toggle="tooltip" title="{{ text_filter }}" class="fa fa-filter"></i> <span>{{ text_filter }}</span></a></li>
+
+        <li><a href="{{ store_info }}"><i data-toggle="tooltip" title="{{ text_store }}" class="fa fa-info"></i> <span>{{ text_store }}</span></a></li>
+
+        <li><a href="{{ setting }}"><i data-toggle="tooltip" title="{{ text_setting }}" class="fa fa-cog"></i> <span>{{ text_setting }}</span></a></li>
+
+        <li><a href="{{ visit_store }}"><i data-toggle="tooltip" title="{{ text_visit_store }}" class="fa fa-external-link"></i> <span>{{ text_visit_store }}</span></a></li>
+
+        <li><a href="{{ subscription }}"><i data-toggle="tooltip" title="{{ text_subscription }}" class="fa fa-ioxhost"></i> <span>{{ text_subscription }}</span></a></li>
+
+        <li><a href="{{ attribute }}"><i data-toggle="tooltip" title="{{ text_attribute }}" class="fa fa-font"></i> <span>{{ text_attribute }}</span></a></li>
+
+        <li><a href="{{ attribute_groups }}"><i data-toggle="tooltip" title="{{ text_attribute_groups }}" class="fa fa-list-alt"></i> <span>{{ text_attribute_groups }}</span></a></li>
+
+
+        <li><a href="{{ option }}"><i data-toggle="tooltip" title="{{ text_option }}" class="fa fa-ellipsis-h"></i> <span>{{ text_option }}</span></a></li>
+
+        <li><a href="{{ coupon }}"><i data-toggle="tooltip" title="{{ text_coupon }}" class="fa fa-gift"></i> <span>{{ text_coupon }}</span></a></li>
+
+      </ul>
+    </div>
+  </nav>
