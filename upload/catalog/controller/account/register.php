@@ -19,6 +19,7 @@ class ControllerAccountRegister extends Controller {
 		$this->load->model('account/customer');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
 			// Clear any previous login attempts for unregistered accounts.
@@ -28,7 +29,55 @@ class ControllerAccountRegister extends Controller {
 
 			unset($this->session->data['guest']);
 
-			$this->response->redirect($this->url->link('account/success'));
+			//User is Dropship
+			if($this->request->post['customer_group_id'] == (string) $this->config->get('customer_group')['dropship']){
+				if ($this->cart->hasProducts()) {
+					$this->response->redirect($this->url->link('checkout/cart'));
+				} else {
+					$this->response->redirect($this->url->link('account/account'));
+				}
+				return;
+			}
+
+			//User is Warehouse Owner
+			$this->load->model('account/customer_group');
+			$customer_group = $this->model_account_customer_group->getCustomerGroup($this->request->post['customer_group_id']);
+						
+			$data['approval'] = 0;
+			$data['sort_order'] = 3;
+			$data['owner_id'] = $customer_id;
+			$data ['customer_group_description'][]= [				
+				'name' => $this->request->post['email'],
+				'description' => $this->request->post['email']				
+			];
+			$data ['customer_group_description'][]= [				
+				'name' => $this->request->post['email'],
+				'description' => $this->request->post['email']				
+			];
+			$customer_group_id = $this->model_account_customer_group->addCustomerGroup($data);
+
+			$this->model_account_customer_group->editGroup($customer_id, $customer_group_id);
+
+			$vendor = [
+				'customer_id'		=> $customer_id,
+				'meta_title' 		=> $this->request->post['firstname'],
+				'meta_description' 	=> $this->request->post['firstname'],
+				'meta_keyword' 		=> $this->request->post['firstname'],	
+				'store_owner'		=> $this->request->post['firstname'],
+				'store_name'		=> $this->request->post['firstname'],
+				'address'			=> $this->request->post['email'],
+				'email'				=> $this->request->post['email'],
+				'telephone'			=> $this->request->post['telephone'],
+				'country_id'		=> '230',
+				'zone_id' 			=> '3780',
+				'city' 				=> 'Ho Chi Minh'
+			];
+
+			$this->load->model('account/vendor/lts_vendor');
+
+			$this->model_account_vendor_lts_vendor->addVendorStoreInfo($vendor);
+
+			$this->response->redirect($this->url->link('account/vendor/lts_dashboard'));
 		}
 
 		$data['breadcrumbs'] = array();

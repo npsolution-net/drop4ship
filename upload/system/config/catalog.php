@@ -60,3 +60,9 @@ $_['action_event'] = array(
 	//	'event/debug/after'
 //	)
 );
+
+//Customer group
+$_['customer_group']            = array(
+	'dropship' => 1,
+	'vendor' => 2
+);

@@ -11,4 +11,21 @@ class ModelAccountCustomerGroup extends Model {
 
 		return $query->rows;
 	}
+
+	public function addCustomerGroup($data) {
+		$option = $data['owner_id'] ? ", owner_id = '" . $data['owner_id'] . "'" : '';
+		$this->db->query("INSERT INTO " . DB_PREFIX . "customer_group SET approval = '" . (int)$data['approval'] . "', sort_order = '" . (int)$data['sort_order'] . "'" . $option);
+
+		$customer_group_id = $this->db->getLastId();
+
+		foreach ($data['customer_group_description'] as $language_id => $value) {
+			$this->db->query("INSERT INTO " . DB_PREFIX . "customer_group_description SET customer_group_id = '" . (int)$customer_group_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "'");
+		}
+		
+		return $customer_group_id;
+	}
+
+	public function editGroup($customer_id, $customer_group_id) {
+		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET customer_group_id = '" . $this->db->escape($customer_group_id) . "' WHERE LCASE(customer_id) = '" . $this->db->escape(utf8_strtolower($customer_id)) . "'");
+	}
 }

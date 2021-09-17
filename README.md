@@ -76,3 +76,109 @@ Please read the installation instructions included in the repository or download
 - [Newsletter](http://newsletter.opencart.com/h/r/B660EBBE4980C85C)
 - [User Voice suggestions](http://opencart.uservoice.com)
 "# drop4ship" 
+
+#git checkout after install the plugins : multivendor.ocmod.zip and vietnamese.ocmod.zip
+        upload/admin/controller/extension/module/lts_vendor.php
+        upload/admin/controller/vendor/lts_assigned_category.php
+        upload/admin/controller/vendor/lts_attribute.php
+        upload/admin/controller/vendor/lts_commission.php
+        upload/admin/controller/vendor/lts_excel.php
+        upload/admin/controller/vendor/lts_gateway.php
+        upload/admin/controller/vendor/lts_mail.php
+        upload/admin/controller/vendor/lts_option.php
+        upload/admin/controller/vendor/lts_order.php
+        upload/admin/controller/vendor/lts_pincode.php
+        upload/admin/controller/vendor/lts_product.php
+        upload/admin/controller/vendor/lts_review.php
+        upload/admin/controller/vendor/lts_seo.php
+        upload/admin/controller/vendor/lts_shipping.php
+        upload/admin/controller/vendor/lts_subscription.php
+        upload/admin/controller/vendor/lts_vendor.php
+        upload/admin/controller/vendor/lts_vendor_category.php
+        upload/admin/language/ar/extension/module/lts_vendor.php
+        upload/admin/language/ar/vendor/lts_assigned_category.php
+        upload/admin/language/ar/vendor/lts_attribute.php
+        upload/admin/language/ar/vendor/lts_commission.php
+        upload/admin/language/ar/vendor/lts_commission_report.php
+        upload/admin/language/ar/vendor/lts_export_import.php
+        upload/admin/language/ar/vendor/lts_getway.php
+        upload/admin/language/ar/vendor/lts_mail.php
+        upload/admin/language/ar/vendor/lts_option.php
+        upload/admin/language/ar/vendor/lts_order.php
+        upload/admin/language/ar/vendor/lts_pincode.php
+        upload/admin/language/ar/vendor/lts_product.php
+        upload/admin/language/ar/vendor/lts_review.php
+        upload/admin/language/ar/vendor/lts_seo.php
+        upload/admin/language/ar/vendor/lts_store.php
+        upload/admin/language/ar/vendor/lts_subscription.php
+        upload/admin/language/ar/vendor/lts_vendor.php
+        upload/admin/language/ar/vendor/lts_vendor_category.php
+        upload/admin/language/ar/vendor/lts_view.php
+        upload/admin/language/ch/extension/module/lts_vendor.php
+        upload/admin/language/ch/vendor/lts_assigned_category.php
+        upload/admin/language/ch/vendor/lts_attribute.php
+        upload/admin/language/ch/vendor/lts_commission.php
+        upload/admin/language/ch/vendor/lts_commission_report.php
+        upload/admin/language/ch/vendor/lts_getway.php
+        upload/admin/language/ch/vendor/lts_mail.php
+        upload/admin/language/ch/vendor/lts_option.php
+        upload/admin/language/ch/vendor/lts_order.php
+        upload/admin/language/ch/vendor/lts_pincode.php
+        upload/admin/language/ch/vendor/lts_product.php
+        upload/admin/language/ch/vendor/lts_review.php
+        upload/admin/language/ch/vendor/lts_seo.php
+        upload/admin/language/ch/vendor/lts_store.php
+        upload/admin/language/ch/vendor/lts_subscription.php
+        upload/admin/language/ch/vendor/lts_vendor.php
+        upload/admin/language/ch/vendor/lts_vendor_category.php
+        upload/admin/language/ch/vendor/lts_view.php
+        upload/admin/language/en-gb/extension/module/lts_vendor.php
+        upload/admin/language/en-gb/vendor/lts_assigned_category.php
+        upload/admin/language/en-gb/vendor/lts_attribute.php
+        upload/admin/language/en-gb/vendor/lts_commission.php
+        upload/admin/language/en-gb/vendor/lts_excel.php
+        upload/admin/language/en-gb/vendor/lts_gateway.php
+        upload/admin/language/en-gb/vendor/lts_mail.php
+        upload/admin/language/en-gb/vendor/lts_option.php
+        upload/admin/language/en-gb/vendor/lts_order.php
+        upload/admin/language/en-gb/vendor/lts_pincode.php
+        upload/admin/language/en-gb/vendor/lts_product.php
+        upload/admin/language/en-gb/vendor/lts_review.php
+        upload/admin/language/en-gb/vendor/lts_seo.php
+        upload/admin/language/en-gb/vendor/lts_store.php
+        upload/admin/language/en-gb/vendor/lts_subscription.php
+        upload/admin/language/en-gb/vendor/lts_vendor.php
+        upload/admin/language/en-gb/vendor/lts_vendor_category.php
+        upload/admin/language/en-gb/vendor/lts_vendor_ocmod.php
+        upload/admin/language/en-gb/vendor/lts_view.php
+        upload/admin/language/pt-br/extension/module/lts_vendor.php
+        upload/admin/language/pt-br/vendor/lts_assigned_category.php
+        upload/admin/language/pt-br/vendor/lts_attribute.php
+        upload/admin/language/pt-br/vendor/lts_commission.php
+        upload/admin/language/pt-br/vendor/lts_commission_r
+
+#run the SQL command
+    ALTER TABLE oc_customer_group ADD owner_id int(11);
+
+#add into System/config/catalog.php
+    //Customer group
+    $_['customer_group']            = array(
+        'dropship' => 1,
+        'vendor' => 2
+    );
+    
+#add the Languages
+    System -> Localisation -> Languges -> Add -> Vietnamese
+
+#add the currencies
+    System -> Localisation -> Currencies -> Add -> Vietnamese
+
+#enale the Multi Vendor
+    Extensions -> Extensions -> Choose the extension type -> Modules -> LetsCms Vendor -> Enable
+
+#add the customer groups
+    Customers -> Customer Groups
+        - Change Default group to Drop Shipping / Dropship
+        - Add new Warehouse Owner / Kho Hàng
+#modify the Store system
+    System -> Settings -> select Default Store
