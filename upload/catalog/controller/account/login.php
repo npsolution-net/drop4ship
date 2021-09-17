@@ -79,7 +79,13 @@ class ControllerAccountLogin extends Controller {
 			if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', '', true) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {
 				$this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
-				$this->response->redirect($this->url->link('account/account', '', true));
+				$this->load->model('account/vendor/lts_vendor');
+				$vendor_info = $this->model_account_vendor_lts_vendor->getVendorInfo($this->customer->isLogged());
+
+				if(count($vendor_info) == 0) 
+					$this->response->redirect($this->url->link('common/home', '', true));
+				else 
+					$this->response->redirect($this->url->link('account/vendor/lts_dashboard', '', true));
 			}
 		}
 

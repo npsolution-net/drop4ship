@@ -54,6 +54,26 @@ class ModelAccountVendorLtsSubscription extends Model {
 
 		return $query->row;
 	}
+
+	public function getDefaultSubscription() {
+		$sql = "SELECT * FROM " . DB_PREFIX . "lts_subscription s LEFT JOIN " . DB_PREFIX . "lts_subscription_description sd ON (s.subscription_id = sd.subscription_id) WHERE sd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND s.default_plan = 1";
+ 
+		$query = $this->db->query($sql);
+
+		return $query->row;
+	}
+
+	public function addDropshipPlan($expire_date, $data, $dropship_id) { 
+
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "lts_plan` WHERE dropship_id = '" . (int)$dropship_id . "'");
+
+		$this->db->query("INSERT INTO " . DB_PREFIX . "lts_plan SET dropship_id = '". (int)$dropship_id ."', subscription_id = '" . (int)$data['subscription_id'] . "', name = '". $this->db->escape($data['name']) ."', no_of_product = '". (int)$data['no_of_product'] ."', join_fee = '". $data['join_fee'] ."', subscription_fee = '". $data['subscription_fee'] ."', validity = '". (int)$data['validity'] ."', date_added = NOW(), date_expire ='". $expire_date ."' ");
+
+		$plan_id = $this->db->getLastId();
+
+		return $plan_id;
+	}
+
 }
 
 

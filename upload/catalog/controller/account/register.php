@@ -22,6 +22,10 @@ class ControllerAccountRegister extends Controller {
 			
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
+			$this->load->model('account/vendor/lts_subscription');
+			$default_subscription = $this->model_account_vendor_lts_subscription->getDefaultSubscription();
+			$expire_date = Date('y:m:d', strtotime('+'. $default_subscription['validity'] .'days'));
+	  
 			// Clear any previous login attempts for unregistered accounts.
 			$this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
 
@@ -31,6 +35,9 @@ class ControllerAccountRegister extends Controller {
 
 			//User is Dropship
 			if($this->request->post['customer_group_id'] == (string) $this->config->get('customer_group')['dropship']){
+
+				$this->model_account_vendor_lts_subscription->addDropshipPlan($expire_date, $default_subscription, $customer_id);
+
 				if ($this->cart->hasProducts()) {
 					$this->response->redirect($this->url->link('checkout/cart'));
 				} else {
@@ -58,7 +65,7 @@ class ControllerAccountRegister extends Controller {
 
 			$this->model_account_customer_group->editGroup($customer_id, $customer_group_id);
 
-			$vendor = [
+			$vendor_data = [
 				'customer_id'		=> $customer_id,
 				'meta_title' 		=> $this->request->post['firstname'],
 				'meta_description' 	=> $this->request->post['firstname'],
@@ -75,7 +82,9 @@ class ControllerAccountRegister extends Controller {
 
 			$this->load->model('account/vendor/lts_vendor');
 
-			$this->model_account_vendor_lts_vendor->addVendorStoreInfo($vendor);
+			$vendor_id = $this->model_account_vendor_lts_vendor->addVendorStoreInfo($vendor_data);
+
+			$this->model_account_vendor_lts_subscription->addVendorPlan($expire_date, $default_subscription, $vendor_id);
 
 			$this->response->redirect($this->url->link('account/vendor/lts_dashboard'));
 		}

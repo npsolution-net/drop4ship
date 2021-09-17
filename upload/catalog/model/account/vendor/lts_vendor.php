@@ -22,7 +22,7 @@ class ModelAccountVendorLtsVendor extends Model {
 					}
 				}
 			}
-
+			return $query->row['vendor_id'];
 		} else {
 
 			if($this->config->get('module_lts_vendor_approval')) {
@@ -48,6 +48,7 @@ class ModelAccountVendorLtsVendor extends Model {
 				}
 			}
 
+			return $vendor_id;
 			// $mail = new Mail();
 			// $mail->protocol = $this->config->get('config_mail_protocol');
 			// $mail->parameter = $this->config->get('config_mail_parameter');

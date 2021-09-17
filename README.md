@@ -159,6 +159,11 @@ Please read the installation instructions included in the repository or download
 
 #run the SQL command
     ALTER TABLE oc_customer_group ADD owner_id int(11);
+    ALTER TABLE oc_lts_plan ADD dropship_id int(11);
+
+#fix the bugs
+    admin\model\catalog\product.php
+        - line 58: `customer_group_id -> customer_group_id //remove char "'"
 
 #add into System/config/catalog.php
     //Customer group
@@ -166,7 +171,7 @@ Please read the installation instructions included in the repository or download
         'dropship' => 1,
         'vendor' => 2
     );
-    
+
 #add the Languages
     System -> Localisation -> Languges -> Add -> Vietnamese
 
@@ -182,3 +187,6 @@ Please read the installation instructions included in the repository or download
         - Add new Warehouse Owner / Kho Hàng
 #modify the Store system
     System -> Settings -> select Default Store
+
+#add Subcription Plan
+    Lts Vendor -> Subscriptiop Plan -> add a default plan
