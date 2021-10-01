@@ -13,6 +13,7 @@ $_['text_password']      = 'Thay đổi mật khẩu';
 $_['text_address']       = 'Thay đổi sổ địa chỉ';
 $_['text_credit_card']    = 'Quản lý thẻ tín dụng của cửa hàng';
 $_['text_wishlist']      = 'Thay đổi danh sách yêu thích';
+$_['text_subscription']   = 'Thay đổi gói sử dụng';
 $_['text_order']         = 'Xem lịch sử đơn hàng';
 $_['text_download']      = 'Tải về';
 $_['text_reward']        = 'Điểm Thưởng'; 
