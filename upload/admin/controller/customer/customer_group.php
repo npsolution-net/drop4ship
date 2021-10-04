@@ -82,11 +82,14 @@ class ControllerCustomerCustomerGroup extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('customer/customer_group');
+		$this->load->model('vendor/lts_vendor');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
 			foreach ($this->request->post['selected'] as $customer_group_id) {
 				$this->model_customer_customer_group->deleteCustomerGroup($customer_group_id);
 			}
+
+			$this->model_vendor_lts_vendor->deleteVendorByCustomer($this->request->post['customer'][0]);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -174,6 +177,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 		foreach ($results as $result) {
 			$data['customer_groups'][] = array(
 				'customer_group_id' => $result['customer_group_id'],
+				'owner_id' 			=> $result['owner_id'],
 				'name'              => $result['name'] . (($result['customer_group_id'] == $this->config->get('config_customer_group_id')) ? $this->language->get('text_default') : null),
 				'sort_order'        => $result['sort_order'],
 				'edit'              => $this->url->link('customer/customer_group/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_group_id=' . $result['customer_group_id'] . $url, true)
@@ -368,7 +372,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
 			$customer_total = $this->model_customer_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
 
-			if ($customer_total) {
+			if ($customer_total > 1) {
 				$this->error['warning'] = sprintf($this->language->get('error_customer'), $customer_total);
 			}
 		}

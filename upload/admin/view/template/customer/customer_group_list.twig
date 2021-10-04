@@ -50,12 +50,14 @@
               </thead>
               <tbody>
                 {% if customer_groups %}
+                <input type="hidden" name="customer[]"/>
                 {% for customer_group in customer_groups %}
                 <tr>
-                  <td class="text-center">{% if customer_group.customer_group_id in selected %}
-                    <input type="checkbox" name="selected[]" value="{{ customer_group.customer_group_id }}" checked="checked" />
-                    {% else %}
-                    <input type="checkbox" name="selected[]" value="{{ customer_group.customer_group_id }}" />
+                  <td class="text-center">                  
+                    {% if customer_group.customer_group_id in selected %}
+                      <input type="checkbox" name="selected[]" data-customer_id={{customer_group.owner_id}} value="{{ customer_group.customer_group_id }}" checked="checked" onclick="onClickGroup(this, {{customer_group.owner_id}});" />
+                    {% elseif customer_group.customer_group_id not in [1,2] %}
+                      <input type="checkbox" name="selected[]" data-customer_id={{customer_group.owner_id}} value="{{ customer_group.customer_group_id }}" onclick="onClickGroup(this, {{customer_group.owner_id}});" />
                     {% endif %}</td>
                   <td class="text-left">{{ customer_group.name }}</td>
                   <td class="text-right">{{ customer_group.sort_order }}</td>
@@ -80,3 +82,19 @@
   </div>
 </div>
 {{ footer }} 
+<script>
+{# $('input[name*=\'selected[]\']').each(function(){
+  customer_id = $(this).data().customer_id;
+  customers = $('input[name*=\'customer[]\']').val().split(",").filter(function(item){ return item != '' && item != customer_id.toString();});
+  if(this.checked)
+    customers.push(customer_id);
+  $('input[name*=\'customer[]\']').val(customers.join(","));
+}); #}
+
+function onClickGroup(self, customer_id){
+  customers = $('input[name*=\'customer[]\']').val().split(",").filter(function(item){ return item != '' && item != customer_id.toString();});
+  if(self.checked)
+    customers.push(customer_id);
+  $('input[name*=\'customer[]\']').val(customers.join(","));
+}
+</script>

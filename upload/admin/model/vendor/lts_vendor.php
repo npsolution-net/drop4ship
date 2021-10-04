@@ -326,6 +326,10 @@ class ModelVendorLtsVendor extends Model {
 	}
 
 	public function deleteVendor($vendor_id) {
-				
+		$this->db->query("DELETE FROM " . DB_PREFIX . "lts_vendor WHERE customer_id = '". (int)$vendor_id ."' ");				
+	}
+
+	public function deleteVendorByCustomer($customer_id) {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "lts_vendor WHERE customer_id IN (" . $customer_id . ")");
 	}
 }
