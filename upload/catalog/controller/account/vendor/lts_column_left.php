@@ -34,28 +34,28 @@ class ControllerAccountVendorLtsColumnLeft extends Controller {
                 'children' => array()       
             );
 
-            $catalog[] = array(
-                'icon'     => 'fa-filter', 
-                'name'     => $this->language->get('text_filter'),
-                'href'     => $this->url->link('account/vendor/lts_filter', '', true),
-                'children' => array()       
-            );
+            // $catalog[] = array(
+            //     'icon'     => 'fa-filter', 
+            //     'name'     => $this->language->get('text_filter'),
+            //     'href'     => $this->url->link('account/vendor/lts_filter', '', true),
+            //     'children' => array()       
+            // );
 
-            if ($this->config->get('module_lts_vendor_review_action')) {
-                $catalog[] = array(
-                   'icon'     => 'fa-star', 
-                   'name'     => $this->language->get('text_review'),
-                   'href'     => $this->url->link('account/vendor/lts_review', '', true),
-                   'children' => array()       
-                );
-            }
+            // if ($this->config->get('module_lts_vendor_review_action')) {
+            //     $catalog[] = array(
+            //        'icon'     => 'fa-star', 
+            //        'name'     => $this->language->get('text_review'),
+            //        'href'     => $this->url->link('account/vendor/lts_review', '', true),
+            //        'children' => array()       
+            //     );
+            // }
 
-            $catalog[] = array(
-                'icon'     => 'fa-list-alt', 
-                'name'     => $this->language->get('text_option'),
-                'href'     => $this->url->link('account/vendor/lts_option', '', true),
-                'children' => array()       
-            ); 
+            // $catalog[] = array(
+            //     'icon'     => 'fa-list-alt', 
+            //     'name'     => $this->language->get('text_option'),
+            //     'href'     => $this->url->link('account/vendor/lts_option', '', true),
+            //     'children' => array()       
+            // ); 
 
             $catalog[] = array(
                 'icon'     => 'fa-industry', 
@@ -64,26 +64,26 @@ class ControllerAccountVendorLtsColumnLeft extends Controller {
                 'children' => array()       
             );
 
-            $catalog[] = array(
-                'icon'     => 'fa-download', 
-                'name'     => $this->language->get('text_download'),
-                'href'     => $this->url->link('account/vendor/lts_download', '', true),
-                'children' => array()       
-            );
+            // $catalog[] = array(
+            //     'icon'     => 'fa-download', 
+            //     'name'     => $this->language->get('text_download'),
+            //     'href'     => $this->url->link('account/vendor/lts_download', '', true),
+            //     'children' => array()       
+            // );
 
-            $catalog[] = array(
-                'icon'     => 'fa-list-alt', 
-                'name'     => $this->language->get('text_attribute'),
-                'href'     => $this->url->link('account/vendor/lts_attribute', '', true),
-                'children' => array()       
-            );
+            // $catalog[] = array(
+            //     'icon'     => 'fa-list-alt', 
+            //     'name'     => $this->language->get('text_attribute'),
+            //     'href'     => $this->url->link('account/vendor/lts_attribute', '', true),
+            //     'children' => array()       
+            // );
 
-             $catalog[] = array(
-                'icon'     => 'fa-industry', 
-                'name'     => $this->language->get('text_attribute_group'),
-                'href'     => $this->url->link('account/vendor/lts_attribute_group', '', true),
-                'children' => array()       
-            );
+            //  $catalog[] = array(
+            //     'icon'     => 'fa-industry', 
+            //     'name'     => $this->language->get('text_attribute_group'),
+            //     'href'     => $this->url->link('account/vendor/lts_attribute_group', '', true),
+            //     'children' => array()       
+            // );
 
            
            
@@ -108,18 +108,18 @@ class ControllerAccountVendorLtsColumnLeft extends Controller {
                 'children' => array()       
             );
 
-            $sales[] = array(
-                'icon'     => 'fa-gift', 
-                'name'     => $this->language->get('text_coupon'),
-                'href'     => $this->url->link('account/vendor/lts_coupon', '', true),
-                'children' => array()       
-            );
-              $sales[] = array(
-                'icon'     => 'fa-percent', 
-                'name'     => $this->language->get('text_commission'),
-                'href'     => $this->url->link('account/vendor/lts_commission', '', true),
-                'children' => array()       
-            );
+            // $sales[] = array(
+            //     'icon'     => 'fa-gift', 
+            //     'name'     => $this->language->get('text_coupon'),
+            //     'href'     => $this->url->link('account/vendor/lts_coupon', '', true),
+            //     'children' => array()       
+            // );
+            //   $sales[] = array(
+            //     'icon'     => 'fa-percent', 
+            //     'name'     => $this->language->get('text_commission'),
+            //     'href'     => $this->url->link('account/vendor/lts_commission', '', true),
+            //     'children' => array()       
+            // );
 
             if ($sales) {
                 $data['menus'][] = array(
@@ -131,6 +131,27 @@ class ControllerAccountVendorLtsColumnLeft extends Controller {
                 );      
             }
 
+             // dropship
+             $dropships = array();
+
+
+             $dropships[] = array(
+                 'icon'     => 'fa-users', 
+                 'name'     => $this->language->get('text_dropship_group'),
+                 'href'     => $this->url->link('account/vendor/lts_dropship', '', true),
+                 'children' => array()       
+             );
+
+             if ($dropships) {
+                $data['menus'][] = array(
+                    'id'       => 'menu-dropships',
+                    'icon'     => 'fa-user', 
+                    'name'     => $this->language->get('text_dropship'),
+                    'href'     => '',
+                    'children' => $dropships
+                );      
+            }
+             //subscription
              $subscription = array();
 
              $subscription[] = array(

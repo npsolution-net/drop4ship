@@ -8,7 +8,7 @@ $_['text_remove']            = 'Thành công: Bạn đã sửa đổi giỏ hàn
 $_['text_login']             = 'Lưu ý: Bạn phải <a href="%s">đăng nhập</a> hoặc <a href="%s">đăng kí thành viên</a> để xem giá!';
 $_['text_items']       = '%s sản phẩm - %s';
 $_['text_points']              = 'Điểm thưởng: %s';
-$_['text_next']                = 'bạn thích làm gì tiếp theo?';
+$_['text_next']                = 'Bạn thích làm gì tiếp theo?';
 $_['text_next_choice']         = 'Chọn nếu bạn có mã giảm giá hoặc điểm thưởng mà bạn muốn sử dụng hoặc muốn ước tính chi phí giao hàng.';
 $_['text_empty']               = 'Giỏ hàng của bạn đang trống!';
 $_['text_day']                 = 'Ngày';

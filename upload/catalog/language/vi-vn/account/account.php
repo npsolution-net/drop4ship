@@ -7,6 +7,7 @@ $_['text_account']       = 'Tài khoản';
 $_['text_my_account']    = 'Tài khoản của tôi';
 $_['text_my_orders']     = 'Đơn hàng của tôi';
 $_['text_my_affiliate']   = 'Tài khoản đại lý của tôi';
+$_['text_edit']           = 'Thay đổi thông tin';
 $_['text_password']      = 'Thay đổi mật khẩu';
 $_['text_address']       = 'Thay đổi sổ địa chỉ';
 $_['text_password']      = 'Thay đổi mật khẩu';

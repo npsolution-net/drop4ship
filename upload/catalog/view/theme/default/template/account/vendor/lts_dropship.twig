@@ -1,0 +1,46 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container">
+      <h1>{{ heading_title }}</h1>
+      {# <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul> #}
+    </div>
+  </div>
+  <div class="container">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {# <h3 class="panel-title"><i class="fa fa-use"></i> {{ text_account_details }}</h3> #}
+      </div>
+      <div class="panel-body">
+        
+
+      d
+      d
+      d
+      d
+      d
+      d
+      d
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{ footer }}
