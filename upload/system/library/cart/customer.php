@@ -2,6 +2,7 @@
 namespace Cart;
 class Customer {
 	private $customer_id;
+	private $vendor_id;
 	private $firstname;
 	private $lastname;
 	private $customer_group_id;
@@ -20,6 +21,13 @@ class Customer {
 			$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$this->session->data['customer_id'] . "' AND status = '1'");
 
 			if ($customer_query->num_rows) {
+
+				$vendor = $this->db->query("SELECT * FROM " . DB_PREFIX . "lts_vendor WHERE customer_id = '" . $this->db->escape(utf8_strtolower($customer_query->row['customer_id'])) . "'");			
+				if($vendor->num_rows){
+					$this->vendor_id = $vendor->row['vendor_id'];
+					$this->session->data['vendor_id'] = $vendor->row['vendor_id'];
+				}
+	
 				$this->customer_id = $customer_query->row['customer_id'];
 				$this->firstname = $customer_query->row['firstname'];
 				$this->lastname = $customer_query->row['lastname'];
@@ -50,6 +58,13 @@ class Customer {
 		}
 
 		if ($customer_query->num_rows) {
+			$vendor = $this->db->query("SELECT * FROM " . DB_PREFIX . "lts_vendor WHERE customer_id = '" . $this->db->escape(utf8_strtolower($customer_query->row['customer_id'])) . "'");
+			
+			if($vendor->num_rows){
+				$this->vendor_id = $vendor->row['vendor_id'];
+				$this->session->data['vendor_id'] = $vendor->row['vendor_id'];
+			}
+
 			$this->session->data['customer_id'] = $customer_query->row['customer_id'];
 
 			$this->customer_id = $customer_query->row['customer_id'];
@@ -60,7 +75,7 @@ class Customer {
 			$this->telephone = $customer_query->row['telephone'];
 			$this->newsletter = $customer_query->row['newsletter'];
 			$this->address_id = $customer_query->row['address_id'];
-		
+
 			$this->db->query("UPDATE " . DB_PREFIX . "customer SET language_id = '" . (int)$this->config->get('config_language_id') . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE customer_id = '" . (int)$this->customer_id . "'");
 
 			return true;
@@ -73,6 +88,7 @@ class Customer {
 		unset($this->session->data['customer_id']);
 
 		$this->customer_id = '';
+		$this->vendor_id = '';
 		$this->firstname = '';
 		$this->lastname = '';
 		$this->customer_group_id = '';
@@ -84,6 +100,10 @@ class Customer {
 
 	public function isLogged() {
 		return $this->customer_id;
+	}
+
+	public function isVendor() {
+		return $this->vendor_id;
 	}
 
 	public function getId() {

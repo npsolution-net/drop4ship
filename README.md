@@ -171,6 +171,9 @@ Please read the installation instructions included in the repository or download
         'dropship' => 1,
         'vendor' => 2
     );
+#add module
+    Bestsellers
+    Featured
 
 #add the Languages
     System -> Localisation -> Languges -> Add -> Vietnamese
@@ -182,7 +185,7 @@ Please read the installation instructions included in the repository or download
     Extensions -> Extensions -> Choose the extension type -> Modules -> LetsCms Vendor -> Enable
 
 #add the customer groups
-    Customers -> Customer Groups
+    <!-- Customers -> Customer Groups -->
         - Change Default group to Drop Shipping / Dropship
         - Add new Warehouse Owner / Kho Hàng
 #modify the Store system

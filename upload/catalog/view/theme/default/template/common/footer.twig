@@ -48,6 +48,14 @@
 {% for script in scripts %}
 <script src="{{ script }}" type="text/javascript"></script>
 {% endfor %}
+
+<script type="text/javascript"><!--
+
+$('#column-right > div.list-group > a[href="http://drop4ship-local.com/index.php?route=account/vendor/lts_store"].list-group-item').css({'display':'none'});
+
+$('.list-group a[href="http://drop4ship-local.com/index.php?route=account/vendor/lts_dashboard"].list-group-item').hide();
+
+//--></script>
 <!--
 OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
 Please donate via PayPal to donate@opencart.com

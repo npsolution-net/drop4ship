@@ -23,7 +23,7 @@ $_['text_forgotten']                 = 'Quên Mật Khẩu';
 $_['text_your_details']              = 'Thông tin tài khoản';
 $_['text_your_address']              = 'Địa Chỉ';
 $_['text_your_password']             = 'Mật Khẩu';
-$_['text_agree']                     = 'Tôi đã đọc và đồng ý với điều khoản <a class="fancybox" href="%s" alt="%s"><b>%s</b></a>';
+$_['text_agree']                     = 'Tôi đã đọc và đồng ý với điều khoản <a class="fancybox" href="%s"><b>%s</b></a>';
 $_['text_address_new']               = 'Tôi muốn dùng địa chỉ thanh toán mới';
 $_['text_address_existing']          = 'Tôi muốn dùng địa chỉ thanh toán đã có';
 $_['text_shipping_method']           = 'Vui lòng chọn phương thức vận chuyển cho đơn hàng này.';
