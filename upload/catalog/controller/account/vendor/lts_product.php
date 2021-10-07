@@ -710,7 +710,13 @@ class ControllerAccountVendorLtsProduct extends Controller {
    
     $this->load->model('account/vendor/lts_language');
 
-    $data['languages'] = $this->model_account_vendor_lts_language->getLanguages();
+    $data['languages'] = array();
+
+    $languages = $this->model_account_vendor_lts_language->getLanguages();
+    foreach ($languages as $language) { 
+      $language['name'] = $this->language->get('text_' . $language['name']);
+      $data['languages'][] = $language;
+    }
 
     if (isset($this->request->post['product_description'])) {
       $data['product_description'] = $this->request->post['product_description'];

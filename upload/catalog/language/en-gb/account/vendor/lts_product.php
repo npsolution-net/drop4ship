@@ -24,6 +24,8 @@ $_['text_calculator'] = 'Price calculator';
 $_['text_admin_commission'] = 'Admin commission(%s)';
 $_['text_getway_charge'] = 'Payment getway charge';
 
+$_['text_English'] = 'English';
+$_['text_Vietnamese'] = 'Vietnamese';
 // Column
 $_['column_name'] = 'Product Name';
 $_['column_model'] = 'Model';

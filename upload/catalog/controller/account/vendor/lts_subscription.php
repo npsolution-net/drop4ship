@@ -106,12 +106,12 @@ class ControllerAccountVendorLtsSubscription extends controller {
 
     $data['languages'] = $this->model_localisation_language->getLanguages();
 
-    foreach ($results as $result) {
-    if($result['plan_type']==1){
+    foreach ($results as $result) { 
+      // if($result['plan_type']==1){
       $url= $this->url->link('account/vendor/lts_subscription/subscribe', '&subscription_id=' . $result['subscription_id']);
-    }else{
-      $url=$this->url->link('product/product', '&product_id=' . $result['product_id']);
-    }
+      // }else{
+        // $url=$this->url->link('product/product', '&product_id=' . $result['product_id']);
+      // }
       $data['subscriptions'][] = array(
           'name'               => $result['name'],
           'subscription_id'    => $result['subscription_id'],
@@ -122,7 +122,7 @@ class ControllerAccountVendorLtsSubscription extends controller {
           'view'               => $this->url->link('account/vendor/lts_subscription/invoice', '&subscription_id=' . $result['subscription_id']),
           'subscribe'          => $url,
           'plan_type'          => $result['plan_type']?'Free':'Paid',
-          'product_id'         => $result['product_id'],
+          // 'product_id'         => $result['product_id'],
       );
     }
 
@@ -288,7 +288,7 @@ class ControllerAccountVendorLtsSubscription extends controller {
     $data['vendor_email'] = $this->customer->getEmail();
     $data['vendor_telephone'] = $this->customer->getTelephone();
 
-    $plan_info = $this->model_account_vendor_lts_subscription->getVendonPlan($this->request->get['subscription_id'], $vendor_info['vendor_id']);
+    $plan_info = $this->model_account_vendor_lts_subscription->getVendonPlanDescription($this->request->get['subscription_id'], $vendor_info['vendor_id']);
 
     if(!empty($plan_info['name'])) {
       $data['name'] = $plan_info['name'];

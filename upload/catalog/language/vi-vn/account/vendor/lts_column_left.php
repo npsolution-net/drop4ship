@@ -5,7 +5,7 @@ $_['text_dashboard']			= 'Quản lý kho hàng';
 $_['text_dropship']			    = 'Dropship';
 $_['text_dropship_list']		= 'Danh sách Dropship';
 
-$_['text_catalog']				= 'Danh muc';
+$_['text_catalog']				= 'Danh mục';
 $_['text_product'] 				= 'Sản phẩm';
 $_['text_category']      		= 'Ngành hàng';
 $_['text_filter']				= 'Filters';
@@ -15,7 +15,7 @@ $_['text_manufacturer']         = 'Thương hiệu';
 $_['text_download']				= 'Downloads';
 $_['text_attribute']      		= 'Attributes';
 $_['text_attribute_group']      = 'Attribute Groups';
-$_['text_sales']				= 'Bán bàng';
+$_['text_sales']				= 'Bán hàng';
 $_['text_order']				= 'Đơn hàng';
 $_['text_coupon']				= "Coupons";
 $_['text_store']				= "Kho hàng";

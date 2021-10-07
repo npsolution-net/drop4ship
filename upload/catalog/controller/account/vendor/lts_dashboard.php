@@ -54,7 +54,7 @@ class ControllerAccountVendorLtsDashboard extends Controller {
 
     $data['breadcrumbs'][] = array(
         'text' => $this->language->get('heading_title'),
-        'href' => $this->url->link('account/vendor/lts_attribute_group')
+        'href' => $this->url->link('account/vendor/lts_dashboard')
     );
 
     if (isset($this->session->data['success'])) {

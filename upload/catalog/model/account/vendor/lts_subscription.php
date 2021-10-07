@@ -20,6 +20,14 @@ class ModelAccountVendorLtsSubscription extends Model {
 		return $query->row; 
 	}
 
+	public function getVendonPlanDescription($subscription_id, $vendor_id)	{
+		$sql = "SELECT p.*, sd.* FROM " . DB_PREFIX . "lts_plan p INNER JOIN " . DB_PREFIX . "lts_subscription_description sd ON p.subscription_id = sd.subscription_id WHERE p.subscription_id = '" . (int)$subscription_id . "' AND vendor_id = '". (int)$vendor_id ."' AND language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+		$query = $this->db->query($sql);
+ 
+		return $query->row; 
+	}
+
 	public function getVendonActivePlan($vendor_id)	{
 		$sql = "SELECT * FROM " . DB_PREFIX . "lts_plan  WHERE vendor_id = '". (int)$vendor_id ."'";
  

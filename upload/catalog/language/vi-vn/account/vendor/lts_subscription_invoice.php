@@ -1,34 +1,34 @@
 <?php
-$_['heading_title']			= 'Subscription Invoice';
+$_['heading_title']			= 'Hóa đơn đăng ký';
 
 
-$_['text_join_fee']			= 'Join fee';
-$_['text_subscription_fee']	= 'Subscription fee';
-$_['text_validity']			= 'Validity (in days)';
+$_['text_join_fee']			= 'Phí Tham gia';
+$_['text_subscription_fee']	= 'Phí đăng ký';
+$_['text_validity']			= 'Chu kỳ sử dụng (theo ngày)';
 
-$_['button_subscribe']		= 'Subscribe';
-$_['button_save_and_invoice']= 'Save & Generate Invoice';
+$_['button_subscribe']		= 'Đăng ký';
+$_['button_save_and_invoice']= 'Lưu & Tạo hóa đơn mới';
 
-$_['text_confirmation']		= 'Confirmation';
+$_['text_confirmation']		= 'Xác nhận';
 
 //text
-$_['text_admin_store']		= 'Admin Store';
-$_['text_admin_address']	= 'Admin Address';
-$_['text_admin_email']		= 'Admin Email';
-$_['text_admin_telephone']	= 'Admin Telephone';
-$_['text_admin_website']	= 'Admin Website';
+$_['text_admin_store']		= 'Nhà cung cấp';
+$_['text_admin_address']	= 'Địa chỉ';
+$_['text_admin_email']		= 'Email';
+$_['text_admin_telephone']	= 'Điện thoại';
+$_['text_admin_website']	= 'Trang chủ';
 
 
 
-$_['text_vendor_store']		= 'vendor Store';
-$_['text_vendor_address']	= 'vendor Address';
-$_['text_vendor_email']		= 'vendor Email';
-$_['text_vendor_telephone']	= 'vendor Telephone';
-$_['text_vendor_website']	= 'vendor Website';
+$_['text_vendor_store']		= 'Tên kho hàng';
+$_['text_vendor_address']	= 'Địa chỉ';
+$_['text_vendor_email']		= 'Email';
+$_['text_vendor_telephone']	= 'Điện thoại';
+$_['text_vendor_website']	= 'Trang chủ';
 
-$_['text_start_date']		= 'Startig Date';
-$_['text_expire_date']		= 'Expire Date';
-$_['text_total_grand']		= 'Total Grand';
+$_['text_start_date']		= 'Ngày bắt đầu';
+$_['text_expire_date']		= 'Ngày kết thúc';
+$_['text_total_grand']		= 'Tổng tiền';
 
 
 

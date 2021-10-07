@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']          = 'Categories';
+$_['heading_title']          = 'Ngành hàng';
 
 // Text
 $_['text_success']           = 'Success: You have modified categories!';
-$_['text_list']              = 'Category List';
+$_['text_list']              = 'Danh sách ngành hàng';
 $_['text_add']               = 'Add Category';
 $_['text_edit']              = 'Edit Category';
 $_['text_default']           = 'Default';
@@ -14,10 +14,10 @@ $_['text_approved']			 = 'Approved';
 $_['text_pending']			 = 'Pending';
 
 // Column
-$_['column_name']            = 'Category Name';
+$_['column_name']            = 'Tên ngành hàng';
 $_['column_sort_order']      = 'Sort Order';
 $_['column_action']          = 'Action';
-$_['column_status']			 = 'Status';
+$_['column_status']			 = 'Trạng thái';
 
 // Entry
 $_['entry_name']             = 'Category Name';

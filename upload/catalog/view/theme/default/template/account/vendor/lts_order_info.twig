@@ -88,7 +88,7 @@
                  </div>
                </div>
                <div class="col-md-4">
-                 <div class="panel panel-default">
+                 {# <div class="panel panel-default">
                    <div class="panel-heading">
                      <h3 class="panel-title"><i class="fa fa-cog"></i> {{ text_option }}</h3>
                    </div>
@@ -125,7 +125,7 @@
                        </tr>
                      </tbody>
                    </table>
-                 </div>
+                 </div> #}
                </div>
              </div>
              <div class="panel panel-default">
@@ -214,7 +214,7 @@
                <div class="panel-body">
                  <ul class="nav nav-tabs">
                    <li class="active"><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
-                   <li><a href="#tab-additional" data-toggle="tab">{{ tab_additional }}</a></li>
+                   {# <li><a href="#tab-additional" data-toggle="tab">{{ tab_additional }}</a></li> #}
                    {% for tab in tabs %}
                    <li><a href="#tab-{{ tab.code }}" data-toggle="tab">{{ tab.title }}</a></li>
                    {% endfor %}
@@ -254,11 +254,13 @@
                              </select>
                            </div>
                          </div>
-                         <div class="form-group">
+                          <input type="hidden" name="override" value="0" id="input-override" />
+                          <input type="hidden" name="notify" value="1" id="input-notify" />
+                         {# <div class="form-group">
                            <label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="{{ help_override }}">{{ entry_override }}</span></label>
                            <div class="col-sm-10">
                              <div class="checkbox">
-                               <input type="checkbox" name="override" value="1" id="input-override" />
+                                <input type="checkbox" name="override" value="1" id="input-override" />
                              </div>
                            </div>
                          </div>
@@ -266,10 +268,10 @@
                            <label class="col-sm-2 control-label" for="input-notify">{{ entry_notify }}</label>
                            <div class="col-sm-10">
                              <div class="checkbox">
-                               <input type="checkbox" name="notify" value="1" id="input-notify" />
+                                <input type="checkbox" name="notify" value="1" id="input-notify" />
                              </div>
                            </div>
-                         </div>
+                         </div> #}
                          <div class="form-group">
                            <label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
                            <div class="col-sm-10">

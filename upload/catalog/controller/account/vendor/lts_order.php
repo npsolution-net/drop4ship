@@ -778,7 +778,7 @@ class ControllerAccountVendorLtsOrder extends Controller {
 
       foreach ($totals as $total) {
         $data['totals'][] = array(
-            'title' => $total['title'],
+            'title' => $this->language->get('text_' . $total['title']),
             'text' => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])
         );
       }

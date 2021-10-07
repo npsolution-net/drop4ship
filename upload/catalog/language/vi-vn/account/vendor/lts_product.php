@@ -24,13 +24,15 @@ $_['text_calculator'] = 'Price calculator';
 $_['text_admin_commission'] = 'Admin commission(%s)';
 $_['text_getway_charge'] = 'Payment getway charge';
 
+$_['text_English'] = 'Tiếng Anh';
+$_['text_Vietnamese'] = 'Tiếng Việt';
 // Column
 $_['column_name'] = 'Tên sản phẩm';
 $_['column_model'] = 'Mã sản phẩm';
 $_['column_image'] = 'Hình ảnh';
 $_['column_price'] = 'Giá';
 $_['column_quantity'] = 'Số lượng';
-$_['column_status'] = 'Trang thái';
+$_['column_status'] = 'Trạng thái';
 $_['column_action'] = 'Hoạt động';
 
 // Entry
@@ -39,10 +41,10 @@ $_['entry_special'] = 'Special Price';
 
 
 $_['entry_description'] = 'Mô tả';
-$_['entry_meta_title'] = 'Meta Tag Title';
-$_['entry_meta_keyword'] = 'Meta Tag Keywords';
+$_['entry_meta_title'] = 'Tiêu đề để tìm kiếm';
+$_['entry_meta_keyword'] = 'Từ khóa để tìm kiếm';
 $_['entry_meta_description'] = 'Meta Tag Description';
-$_['entry_store'] = 'Stores';
+$_['entry_store'] = 'Kho hàng';
 $_['entry_keyword'] = 'Keyword';
 $_['entry_model'] = 'Mã sản phẩm';
 $_['entry_sku'] = 'SKU';
@@ -70,11 +72,11 @@ $_['entry_length_class'] = 'Length Class';
 $_['entry_length'] = 'Length';
 $_['entry_width'] = 'Width';
 $_['entry_height'] = 'Height';
-$_['entry_image'] = 'Image';
-$_['entry_additional_image'] = 'Additional Images';
-$_['entry_customer_group'] = 'Customer Group';
-$_['entry_date_start'] = 'Date Start';
-$_['entry_date_end'] = 'Date End';
+$_['entry_image'] = 'Hình ảnh';
+$_['entry_additional_image'] = 'Hình ảnh khác';
+$_['entry_customer_group'] = 'Nhóm Dropship';
+$_['entry_date_start'] = 'Ngày bắt đầu';
+$_['entry_date_end'] = 'Ngày kết thúc';
 $_['entry_priority'] = 'Priority';
 $_['entry_attribute'] = 'Attribute';
 $_['entry_attribute_group'] = 'Attribute Group';
@@ -83,12 +85,12 @@ $_['entry_option'] = 'Option';
 $_['entry_option_value'] = 'Option Value';
 $_['entry_required'] = 'Required';
 $_['entry_status'] = 'Trạng thái';
-$_['entry_sort_order'] = 'Sort Order';
-$_['entry_category'] = 'Categories';
+$_['entry_sort_order'] = 'Thứ tự';
+$_['entry_category'] = 'Ngành hàng';
 $_['entry_filter'] = 'Filters';
 $_['entry_download'] = 'Downloads';
-$_['entry_related'] = 'Related Products';
-$_['entry_tag'] = 'Product Tags';
+$_['entry_related'] = 'Sản phẩm liên quan';
+$_['entry_tag'] = 'Từ gợi ý sản phẩm';
 $_['entry_reward'] = 'Reward Points';
 $_['entry_layout'] = 'Layout Override';
 $_['entry_recurring'] = 'Recurring Profile';
@@ -124,15 +126,15 @@ $_['error_product_category'] = 'Category is required';
 
 
 //tab
-$_['tab_general'] = 'General';
-$_['tab_data'] = 'Data';
+$_['tab_general'] = 'Thông tin chung';
+$_['tab_data'] = 'Mô tả';
 $_['tab_attribute'] = 'Attribute';
 $_['tab_option'] = 'Option';
 $_['tab_recurring'] = 'Recurring';
-$_['tab_discount'] = 'Discount';
+$_['tab_discount'] = 'Giảm giá';
 $_['tab_special'] = 'Special';
-$_['tab_image'] = 'Image';
-$_['tab_links'] = 'Links';
+$_['tab_image'] = 'Hình ảnh';
+$_['tab_links'] = 'Ngành hàng';
 $_['tab_reward'] = 'Reward';
 $_['tab_seo'] = 'SEO';
 $_['tab_design'] = 'Design';
@@ -140,8 +142,8 @@ $_['tab_openbay'] = 'Openbay';
 $_['tab_pincode_checker'] = 'Pincode Checker';
 
 
-$_['text_approved'] = 'Approved';
-$_['text_pending'] = 'Pending';
+$_['text_approved'] = 'Chấp nhận';
+$_['text_pending'] = 'Đang xử lý';
 //mail
 $_['title_mail']               = 'Notification Mail';
 $_['mail_vendor_name']              = 'Vendor Name';
