@@ -1,0 +1,255 @@
+{{ header }}
+<div class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+      <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+      {% endfor %}
+  </ul>
+  {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
+  {% endif %}
+
+  <div class="row">   
+    {{ lts_column_left }}
+    <div id="content" class="col-sm-9">
+      {{ lts_mobile_menu }}   
+      <div class="lts-dashboard-wrap">
+        <div class="row">
+          <div class="col-sm-12 lts-products">
+            <div class="panel panel-default">
+              <div class="panel-heading clearfix"><span>{{ text_add }}</span>
+                <div class="pull-right">
+                  <button type="submit" form="form-dropship" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                  <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+                </div>
+              </div>
+            </div>
+
+            {# FILTER #}
+
+            {# <div class="well">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label" for="input-name">{{ entry_name }}</label>
+                    <input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="input-model">{{ entry_model }}</label>
+                    <input type="text" name="filter_model" value="{{ filter_model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label" for="input-price">{{ entry_price }}</label>
+                    <input type="text" name="filter_price" value="{{ filter_price }}" placeholder="{{ entry_price }}" id="input-price" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="input-quantity">{{ entry_quantity }}</label>
+                    <input type="text" name="filter_quantity" value="{{ filter_quantity }}" placeholder="{{ entry_quantity }}" id="input-quantity" class="form-control" />
+                  </div>
+
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label class="control-label" for="input-status">{{ entry_status }}</label>
+                    <select name="filter_status" id="input-status" class="form-control">
+                      <option value=""></option>
+
+                      {% if filter_status == '1' %}
+
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+
+
+                      {% else %}
+
+                        <option value="1">{{ text_enabled }}</option>
+
+                      {% endif %}
+                      {% if filter_status == '0' %}
+
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+
+                      {% else %}
+
+                        <option value="0">{{ text_disabled }}</option>
+
+                      {% endif %}
+
+                    </select>
+                  </div>
+                  <div class="form-group text-right">
+                    <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+                  </div>
+                </div>
+              </div>
+            </div> #}
+
+            {# Product list #}
+
+            <form action="{{ save }}" method="post" enctype="multipart/form-data" id="form-dropship">
+              <div class="row">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label dropship-input-label" for="input-email">{{ entry_email }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="email" placeholder="{{ entry_email }}" id="input-email" class="form-control" onkeydown="onChangeEmail(this)"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="row">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label dropship-input-label" for="input-name">{{ entry_name }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="name" id="input-name" class="form-control" disabled />
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="row">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label dropship-input-label" for="input-telephone">{{ entry_telephone }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="telephone" id="input-telephone" class="form-control" disabled/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="row">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label dropship-input-label" for="input-status">{{ entry_status }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="status" id="input-status" class="form-control" disabled/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>            
+            </form>
+            <div class="row">
+              <div class="col-sm-6 text-left">{{ pagination }}</div>
+              <div class="col-sm-6 text-right">{{ results }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript"><!--
+$('#button-filter').on('click', function() {
+  var url = '';
+
+  var filter_name = $('input[name=\'filter_name\']').val();
+
+  if (filter_name) {
+    url += '&filter_name=' + encodeURIComponent(filter_name);
+  }
+
+  var filter_model = $('input[name=\'filter_model\']').val();
+
+  if (filter_model) {
+    url += '&filter_model=' + encodeURIComponent(filter_model);
+  }
+
+  var filter_price = $('input[name=\'filter_price\']').val();
+
+  if (filter_price) {
+    url += '&filter_price=' + encodeURIComponent(filter_price);
+  } 
+
+  var filter_quantity = $('input[name=\'filter_quantity\']').val();
+
+  if (filter_quantity) {
+    url += '&filter_quantity=' + encodeURIComponent(filter_quantity);
+  }
+
+  var filter_status = $('select[name=\'filter_status\']').val();
+
+  if (filter_status !== '') {
+    url += '&filter_status=' + encodeURIComponent(filter_status);
+  }
+
+  location = 'index.php?route=account/vendor/lts_product&' + url;
+});
+//--></script> 
+  <script type="text/javascript"><!--
+//IE and Edge fix!
+$('button[form=\'form-product\']').on('click', function(e) {
+  $('#form-product').attr('action', $(this).attr('formaction'));
+});
+  
+$('input[name=\'filter_name\']').autocomplete({
+  'source': function(request, response) {
+    $.ajax({
+      url: 'index.php?route=account/vendor/lts_product/autocomplete&filter_name=' +  encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['name'],
+            value: item['product_id']
+          }
+        }));
+      }
+    });
+  },
+  'select': function(item) {
+    $('input[name=\'filter_name\']').val(item['label']);
+  }
+});
+  
+$('input[name=\'filter_model\']').autocomplete({
+  'source': function(request, response) {
+    $.ajax({
+      url: 'index.php?route=account/vendor/lts_product/autocomplete&filter_model=' +  encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['model'],
+            value: item['product_id']
+          }
+        }));
+      }
+    });
+  },
+  'select': function(item) {
+    $('input[name=\'filter_model\']').val(item['label']);
+  }
+});
+
+function onChangeEmail(self){
+  setTimeout(function(){
+    email = $(self).val();
+
+    if(email.indexOf("@") > 0){
+      $.ajax({
+        url: 'index.php?route=dropship/dropship/searchByEmail',
+        dataType: 'json',
+        type: "post",
+        data: {email: $(self).val()},
+        success: function(json) {
+          console.log(json);
+          if(json.length > 0){
+            json = json[0];
+            $('input[name=\'customer\']').val(json['customer_id']);
+            $('input[name=\'name\']').val(json['firstname'] + ' ' + json['lastname']);
+            $('input[name=\'telephone\']').val(json['telephone']);
+            $('input[name=\'status\']').val(json['status']);
+          }
+        },
+        fail: function(error){
+          console.log(error);
+        } 
+      });
+    }
+  }, 100);
+}
+
+//--></script></div>
+{{ footer }}            

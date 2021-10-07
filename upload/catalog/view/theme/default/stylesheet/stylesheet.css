@@ -748,3 +748,8 @@ h2.price {
     background-image: none;
     background-color: #df5c39;
 }
+
+.dropship-input-label{
+	margin-top: 10px;
+	height: 35px;
+}

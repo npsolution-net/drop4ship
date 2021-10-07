@@ -2,6 +2,9 @@
 //text
 $_['text_dashboard']			= 'Dashboard';
 
+$_['text_dropship']			    = 'Dropship';
+$_['text_dropship_list']		= 'Members';
+
 $_['text_catalog']				= 'Catalog';
 $_['text_product'] 				= 'Products';
 $_['text_category']      		= 'Categories';

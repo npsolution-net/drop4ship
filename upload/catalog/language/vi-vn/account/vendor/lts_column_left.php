@@ -2,6 +2,9 @@
 //text
 $_['text_dashboard']			= 'Quản lý kho hàng';
 
+$_['text_dropship']			    = 'Dropship';
+$_['text_dropship_list']		= 'Danh sách Dropship';
+
 $_['text_catalog']				= 'Danh muc';
 $_['text_product'] 				= 'Sản phẩm';
 $_['text_category']      		= 'Ngành hàng';

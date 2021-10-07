@@ -137,8 +137,8 @@ class ControllerAccountVendorLtsColumnLeft extends Controller {
 
              $dropships[] = array(
                  'icon'     => 'fa-users', 
-                 'name'     => $this->language->get('text_dropship_group'),
-                 'href'     => $this->url->link('account/vendor/lts_dropship', '', true),
+                 'name'     => $this->language->get('text_dropship_list'),
+                 'href'     => $this->url->link('dropship/dropship', '', true),
                  'children' => array()       
              );
 
