@@ -20,7 +20,7 @@ class ControllerAccountVendorLtsDashboard extends Controller {
 
         $this->response->redirect($this->url->link('account/login', '', true));
     }
-
+    
     if(!$this->config->get('module_lts_vendor_status')) {
         $this->response->redirect($this->url->link('account/account', '', true));
     }
@@ -32,7 +32,7 @@ class ControllerAccountVendorLtsDashboard extends Controller {
     }
      
     $vednor_info = $this->model_account_vendor_lts_vendor->getVendorStoreInfo($this->customer->isLogged());
-
+    
     if(!$vednor_info) {
         $this->response->redirect($this->url->link('account/account', '', true));
     }

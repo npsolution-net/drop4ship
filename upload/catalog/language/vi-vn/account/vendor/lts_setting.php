@@ -1,24 +1,24 @@
 <?php
-$_['heading_title']			= 'Setting|Payment Details';
+$_['heading_title']			= 'Cài đặt';
 
 //tab
-$_['tab_shipping']			= 'Shipping';
-$_['tab_payment']			= 'Payment';
+$_['tab_shipping']			= 'Vận chuyển';
+$_['tab_payment']			= 'Thanh toán';
 $_['tab_paypal']		    = 'Paypal';
-$_['tab_bank_transfer']	    = 'Bank Transfer';
+$_['tab_bank_transfer']	    = 'Tài khoản ngân hàng';
 
 
 
 //text
-$_['text_payment_details']	= 'Payment Detailts';
+$_['text_payment_details']	= 'Thông tin thanh toán';
 $_['text_success']           = 'Success: You have modified setting!';
 
 //entry
-$_['entry_paypal']		= 'Paypal email';
-$_['entry_bankname']	= 'Bank Name';
-$_['entry_accountno']   = 'Account no';
-$_['entry_ifsc']		= 'IFSC Code';
-$_['entry_account_holder'] = 'Account holder';
+$_['entry_paypal']		= 'Paypal Email';
+$_['entry_bankname']	= 'Tên ngân hàng';
+$_['entry_accountno']   = 'Số tài khoản';
+$_['entry_ifsc']		= 'Mã IFSC';
+$_['entry_account_holder'] = 'Tên chủ tài khoản';
 
 // Error
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';

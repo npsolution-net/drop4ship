@@ -161,6 +161,18 @@ Please read the installation instructions included in the repository or download
     ALTER TABLE oc_customer_group ADD owner_id int(11);
     ALTER TABLE oc_lts_plan ADD dropship_id int(11);
 
+    --
+    -- Table structure for table `oc_attribute`
+    --
+
+    DROP TABLE IF EXISTS `oc_dropship_group`;
+    CREATE TABLE `oc_dropship_group` (
+    `customer_id` int(11) NOT NULL,
+    `customer_group_id` int(11) NOT NULL,  
+    `status` tinyint(1),
+    PRIMARY KEY (`customer_id`,`customer_group_id`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 #fix the bugs
     admin\model\catalog\product.php
         - line 58: `customer_group_id -> customer_group_id //remove char "'"

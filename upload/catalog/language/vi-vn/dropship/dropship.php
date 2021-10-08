@@ -1,12 +1,12 @@
 <?php
 
 // Heading
-$_['heading_title'] = 'Sản phẩm';
+$_['heading_title'] = 'Dropships';
 
 // Text
 $_['text_success'] = 'Sản phẩm của bạn đã được thay đổi!';
-$_['text_list'] = 'Danh sách sản phẩm';
-$_['text_add'] = 'Thêm sản phẩm';
+$_['text_list'] = 'Danh sách Dropship';
+$_['text_add'] = 'Thêm Dropship';
 $_['text_edit'] = 'Thay đổi sản phẩm';
 $_['text_filter'] = 'Filter';
 $_['text_plus'] = '+';
