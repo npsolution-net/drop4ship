@@ -5,11 +5,33 @@ class ControllerExtensionModuleLatest extends Controller {
 
 		$this->load->model('catalog/product');
 
+		$this->load->model('dropship/dropship');
+
 		$this->load->model('tool/image');
+
+		$data['customer_group_id'] = array();
+
+		$dropship_filter = array(
+			'customer_id' => $this->customer->getId()
+		);
+		$dropship_groups = $this->model_dropship_dropship->getDropshipGroup($dropship_filter);
+
+		foreach($dropship_groups as $dropship_group)
+			$data['dropship_group'][]  = $dropship_group['customer_group_id'];	
 
 		$data['products'] = array();
 
-		$results = $this->model_catalog_product->getLatestProducts($setting['limit']);
+		$product_filter = array(
+			'limit' => $setting['limit'],
+		);
+		
+		if(isset($data['dropship_group']))
+			$product_filter['customer_group'] = $data['dropship_group'];
+
+		// if($this->customer->isLogged())
+		// 	$product_filter['customer_id'] = $this->customer->isLogged();
+		
+		$results = $this->model_catalog_product->getLatestProducts($product_filter);
 
 		if ($results) {
 			foreach ($results as $result) {
@@ -44,9 +66,8 @@ class ControllerExtensionModuleLatest extends Controller {
 				} else {
 					$rating = false;
 				}
-
-				$data['products'][] = array(
-					'product_id'  => $result['product_id'],
+				$item = array(
+					'product_id'  => $result['product_id'],						
 					'thumb'       => $image,
 					'name'        => $result['name'],
 					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
@@ -54,10 +75,19 @@ class ControllerExtensionModuleLatest extends Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'rating'      => $rating,
-					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
+					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id']),
 				);
-			}
 
+				if(isset($result['customer_id']))
+					$item['customer_id']  = $result['customer_id'];
+				if(isset($result['customer_group_id']))
+					$item['customer_group_id']  = $result['customer_group_id'];		
+				if(isset($result['customer_group_id']) && isset($data['dropship_group']) && in_array($result['customer_group_id'], $data['dropship_group']))
+					$item['is_in_group']  = true;
+				
+				$data['products'][] = $item;
+			}
+			$data['isLogged'] = $this->customer->isLogged();
 			return $this->load->view('extension/module/latest', $data);
 		}
 	}

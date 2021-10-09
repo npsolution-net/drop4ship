@@ -764,3 +764,7 @@ div.current-plan{
     left: 25px !important;
 	width: 100px !important;
 }
+
+.button-call-vendor{
+	width: 100% !important;
+}

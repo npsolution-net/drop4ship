@@ -160,6 +160,7 @@ Please read the installation instructions included in the repository or download
 #run the SQL command
     ALTER TABLE oc_customer_group ADD owner_id int(11);
     ALTER TABLE oc_lts_plan ADD dropship_id int(11);
+    <!-- ALTER TABLE oc_product ADD customer_id int(11); -->
 
     --
     -- Table structure for table `oc_attribute`

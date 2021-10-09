@@ -9,6 +9,13 @@ class ModelDropshipDropship extends Model {
     return $query->rows;
   }
 
+  public function getDropshipGroup($data = array()){
+    $sql = "SELECT * FROM " . DB_PREFIX . "dropship_group WHERE customer_id = '" . $this->db->escape($data['customer_id']) . "'";
+    $query = $this->db->query($sql);
+
+    return $query->rows;
+  }
+
   public function addDropshipGroup($data = array()){
     $customer = $this->db->query("SELECT * FROM ". DB_PREFIX . "customer WHERE email = '" . $this->db->escape($data['email']) . "'");
     if(count($customer->rows) > 0 ){
