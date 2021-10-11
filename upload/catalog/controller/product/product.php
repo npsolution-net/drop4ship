@@ -441,6 +441,28 @@ class ControllerProductProduct extends Controller {
 
 			$data['recurrings'] = $this->model_catalog_product->getProfiles($this->request->get['product_id']);
 
+			$this->load->model('dropship/dropship');
+
+			$dropship_filter = array(
+				'customer_id' => $this->customer->getId()
+			);	
+			$dropship_groups = $this->model_dropship_dropship->getDropshipGroup($dropship_filter);
+
+			foreach($dropship_groups as $dropship_group)
+				$data['dropship_group'][]  = $dropship_group['customer_group_id'];
+
+			$product_group_filter = array(
+				'customer_id' => $this->customer->getId(),
+				'product_id' => $this->request->get['product_id']
+			);	
+			if(isset($data['dropship_group']))
+				$product_group_filter['customer_group'] = $data['dropship_group'];
+			$data['product_group'] = $this->model_catalog_product->getProductGroup($product_group_filter);
+					
+			if(isset($data['dropship_group']) && count($data['product_group']) > 0 && in_array($data['product_group']['customer_group_id'], $data['dropship_group']))
+				$data['is_in_group']  = true;
+				
+			$data['isLogged'] = $this->customer->isLogged();
 			$this->model_catalog_product->updateViewed($this->request->get['product_id']);
 			
 			$data['column_left'] = $this->load->controller('common/column_left');

@@ -479,11 +479,14 @@ $(document).delegate('#button-shipping-address', 'click', function() {
             } else {
                 $.ajax({
                     url: 'index.php?route=checkout/shipping_method',
+                    type: 'post',
+                    data: $('#collapse-shipping-address input[type=\'text\'], #collapse-shipping-address input[type=\'date\'], #collapse-shipping-address input[type=\'datetime-local\'], #collapse-shipping-address input[type=\'time\'], #collapse-shipping-address input[type=\'password\'], #collapse-shipping-address input[type=\'checkbox\']:checked, #collapse-shipping-address input[type=\'radio\']:checked, #collapse-shipping-address textarea, #collapse-shipping-address select'),
                     dataType: 'html',
                     complete: function() {
                         $('#button-shipping-address').button('reset');
                     },
                     success: function(html) {
+                        console.log(html);
                         $('#collapse-shipping-method .panel-body').html(html);
 
 						$('#collapse-shipping-method').parent().find('.panel-heading .panel-title').html('<a href="#collapse-shipping-method" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">{{ text_checkout_shipping_method }} <i class="fa fa-caret-down"></i></a>');

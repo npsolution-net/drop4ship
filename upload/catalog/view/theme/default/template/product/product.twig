@@ -132,7 +132,9 @@
             <li>{{ text_stock }} {{ stock }}</li>
           </ul>
           {% if price %}
+          
           <ul class="list-unstyled">
+            {% if isLogged and is_in_group %}
             {% if not special %}
             <li>
               <h2>{{ price }}</h2>
@@ -157,9 +159,14 @@
             <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
             {% endfor %}
             {% endif %}
+            {% else %}
+            <li>
+              <h2>{{ text_call_price }}</h2>
+            </li>
+            {% endif %}
           </ul>
           {% endif %}
-          <div id="product"> {% if options %}
+          <div id="product"> {% if options and is_in_group %}
             <hr>
             <h3>{{ text_option }}</h3>
             {% for option in options %}
@@ -272,13 +279,19 @@
               </select>
               <div class="help-block" id="recurring-description"></div>
             </div>
-            {% endif %}
+            {% endif %}            
             <div class="form-group">
+              {% if is_in_group %}
               <label class="control-label" for="input-quantity">{{ entry_qty }}</label>
               <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />
               <input type="hidden" name="product_id" value="{{ product_id }}" />
+              {% endif %}
               <br />
-              <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
+              {% if is_in_group %}
+                <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
+              {% else %}
+                <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block" disabled>{{ text_call_cart }}</button>                
+              {% endif %}
             </div>
             {% if minimum > 1 %}
             <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
@@ -318,17 +331,26 @@
                 {% if product.rating < j %} <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span> {% else %} <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> {% endif %}
                 {% endfor %} </div>
               {% endif %}
-              {% if product.price %}
-              <p class="price"> {% if not product.special %}
-                {{ product.price }}
-                {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span> {% endif %}
-                {% if product.tax %} <span class="price-tax">{{ text_tax }} {{ product.tax }}</span> {% endif %} </p>
-              {% endif %} </div>
+              {% if isLogged and product.is_in_group %}
+                {% if product.price %}
+                <p class="price"> {% if not product.special %}
+                  {{ product.price }}
+                  {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span> {% endif %}
+                  {% if product.tax %} <span class="price-tax">{{ text_tax }} {{ product.tax }}</span> {% endif %} </p>
+                {% endif %} 
+              {% else %}
+              <div class="button-group">
+                <button type="button" class="button-call-vendor" onclick=""><i class="fa fa-phone"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_call_price }}</span></button>
+              </div>
+              {% endif %}
+            </div>
+            {% if isLogged and product.is_in_group %}
             <div class="button-group">
               <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span> <i class="fa fa-shopping-cart"></i></button>
               <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></button>
               <button type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>
             </div>
+            {% endif %}
           </div>
         </div>
         {% if column_left and column_right and (i + 1) % 2 == 0 %}

@@ -30,7 +30,8 @@ $_['text_week']                = 'Tuần';
 $_['text_semi_month']          = 'Nửa tháng';
 $_['text_month']               = 'Tháng';
 $_['text_year']                = 'Năm';
-
+$_['text_call_price']          = "Liên hệ để xem giá";
+$_['text_call_cart']           = "Liên hệ để mua hàng";
 // Entry
 $_['entry_qty']                = 'Số lượng';
 $_['entry_name']               = 'Tên bạn';

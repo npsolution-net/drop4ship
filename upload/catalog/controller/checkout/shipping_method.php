@@ -2,34 +2,70 @@
 class ControllerCheckoutShippingMethod extends Controller {
 	public function index() {
 		$this->load->language('checkout/checkout');
-
+		
 		if (isset($this->session->data['shipping_address'])) {
 			// Shipping Methods
 			$method_data = array();
 
 			$this->load->model('setting/extension');
 
-			$results = $this->model_setting_extension->getExtensions('shipping');
-
+			$results = $this->model_setting_extension->getExtensions('shipping');	
+	
 			foreach ($results as $result) {
-				if ($this->config->get('shipping_' . $result['code'] . '_status')) {
+				if ($this->config->get('shipping_' . $result['code'] . '_status')) {				
+		
 					$this->load->model('extension/shipping/' . $result['code']);
 
 					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
+					$shipping_api = $this->{'model_extension_shipping_' . $result['code']}->getActiveShipping($result['code']);
+					$shipping_services = $this->{'model_extension_shipping_' . $result['code']}->getServicesShipping($shipping_api);
 
+					$services = array();
+
+					if($shipping_services && ($shipping_services->code == 200)){
+						$keys = $this->config->get($result['code'] . "_shipping_api")['service_type'];
+
+						foreach($shipping_services->data as $shipping_service){
+							$name = $keys[$shipping_service->service_type_id];
+							if($name){								
+								$shipping_service->short_name = $this->language->get('text_' . $name);
+								$services[] = $shipping_service;
+							}
+						}
+					}
 					if ($quote) {
 						$method_data[$result['code']] = array(
 							'title'      => $quote['title'],
 							'quote'      => $quote['quote'],
 							'sort_order' => $quote['sort_order'],
-							'error'      => $quote['error']
+							'error'      => $quote['error'],
+							'services'   => $services
 						);
 					}
 				}
 			}
 
 			$sort_order = array();
-
+			// array(2) {
+			// 	[0]=>
+			// 	object(stdClass)#127 (3) {
+			// 	  ["service_id"]=>
+			// 	  int(53319)
+			// 	  ["short_name"]=>
+			// 	  string(16) "Giao hàng nhanh"
+			// 	  ["service_type_id"]=>
+			// 	  int(1)
+			// 	}
+			// 	[1]=>
+			// 	object(stdClass)#128 (3) {
+			// 	  ["service_id"]=>
+			// 	  int(53320)
+			// 	  ["short_name"]=>
+			// 	  string(26) "Giao hàng bình thường"
+			// 	  ["service_type_id"]=>
+			// 	  int(2)
+			// 	}
+			//   }
 			foreach ($method_data as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
 			}

@@ -256,9 +256,22 @@ class ModelCatalogProduct extends Model {
 		return $product_data;
 	}
 
+	public function getProductGroup($data = array()) {
+		$sql = "SELECT p.product_id, lp.vendor_id, lv.customer_id, cg.customer_group_id FROM " . DB_PREFIX . "product p INNER JOIN " . DB_PREFIX ."lts_product lp ON p.product_id = lp.product_id INNER JOIN " . DB_PREFIX . "lts_vendor lv ON lp.vendor_id = lv.vendor_id INNER JOIN " . DB_PREFIX . "customer_group cg ON lv.customer_id = cg.owner_id WHERE p.status = '1' AND p.product_id = '" . $data['product_id'] . "'";
+
+		// if(isset($data['customer_group']))
+		// 	$sql = $sql . " AND lv.customer_id = " . $data['customer_id'];
+
+		if(isset($data['customer_group']))
+			$sql = $sql . " AND cg.customer_group_id IN(" . implode(",", $data['customer_group']) . ")";
+
+		$query = $this->db->query($sql);
+		return $query->row;
+	}
+
 	public function getLatestProducts($data = array()) {
 		// $product_data = $this->cache->get('product.latest.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit);
-
+		$product_data = array();
 		// if (!$product_data) {
 		$sql = "SELECT p.product_id, lp.vendor_id, lv.customer_id, cg.customer_group_id FROM " . DB_PREFIX . "product p INNER JOIN " . DB_PREFIX ."lts_product lp ON p.product_id = lp.product_id INNER JOIN " . DB_PREFIX . "lts_vendor lv ON lp.vendor_id = lv.vendor_id INNER JOIN " . DB_PREFIX . "customer_group cg ON lv.customer_id = cg.owner_id WHERE p.status = '1' AND p.date_available <= NOW() ";
 
@@ -270,13 +283,13 @@ class ModelCatalogProduct extends Model {
 		$query = $this->db->query($sql);
 
 		foreach ($query->rows as $result) {
-			$vendor = $this->getVendor($result['product_id']);
+			// $vendor = $this->getVendor($result['product_id']);
 			$product = $this->getProduct($result['product_id']);
 
-			if(count($vendor) > 0)
-				$product_data[$result['product_id']] = array_merge($product, $vendor[0]);
-			else					
-				$product_data[$result['product_id']] = $product;
+			// if(count($vendor) > 0)
+			// 	$product_data[$result['product_id']] = array_merge($product, $vendor[0]);
+			// else					
+			$product_data[$result['product_id']] = array_merge($product, $result);
 		}
 			// $this->cache->set('product.latest.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit, $product_data);
 		// }

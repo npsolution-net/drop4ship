@@ -30,6 +30,8 @@ $_['text_week']                = 'week';
 $_['text_semi_month']          = 'half-month';
 $_['text_month']               = 'month';
 $_['text_year']                = 'year';
+$_['text_call_price']          = "Call for Price";
+$_['text_call_cart']           = "Call to Cart";
 
 // Entry
 $_['entry_qty']                = 'Qty';

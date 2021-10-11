@@ -17,6 +17,50 @@ class ControllerCheckoutCart extends Controller {
 			'text' => $this->language->get('heading_title')
 		);
 
+// $curl = curl_init();
+// $order=array(
+
+// );
+
+// $ch = curl_init();
+// curl_setopt($ch, CURLOPT_URL, "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services");
+// curl_setopt($ch, CURLOPT_POST, 1);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// curl_setopt($ch, CURLOPT_HTTPHEADER, array( 
+// 	"Content-Type: application/json",
+// 	"Token: ". "615c1360-ec80-11eb-9388-d6e0030cbbb7",
+// ));
+// curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
+// 	"shop_id" => 81552,
+// 	"from_district" => 1447,
+// 	"to_district" => 1442
+// )));
+
+// echo "<pre>";
+
+// $result = curl_exec($ch);
+// var_dump($this->config->get('ghn_shipping_api'));
+// var_dump(json_decode($result));
+// curl_close($ch);
+// die();
+// curl_setopt_array($curl, array(
+//     CURLOPT_URL => "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services",
+//     CURLOPT_RETURNTRANSFER => true,
+//     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//     CURLOPT_CUSTOMREQUEST => "POST",
+//     CURLOPT_POSTFIELDS => $order,
+//     CURLOPT_HTTPHEADER => array(
+//         "Content-Type: application/json",
+//         "Token: ". "615c1360-ec80-11eb-9388-d6e0030cbbb7",
+//         "Content-Length: " . 10,
+//     ),
+// ));
+
+// $response = curl_exec($curl);
+// echo "<pre>";
+// var_dump($response);
+// curl_close($curl);
+// die();
 		if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
 			if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
 				$data['error_warning'] = $this->language->get('error_stock');

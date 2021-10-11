@@ -4,7 +4,7 @@
 {% if shipping_methods %}
 <p>{{ text_shipping_method }}</p>
 {% for shipping_method in shipping_methods %}
-<p><strong>{{ shipping_method.title }}</strong></p>
+{# <p><strong>{{ shipping_method.title }}</strong></p> #}
 {% if not shipping_method.error %}
 {% for quote in shipping_method.quote %}
 <div class="radio">
@@ -14,8 +14,17 @@
     {% else %}
     <input type="radio" name="shipping_method" value="{{ quote.code }}" />
     {% endif %}
-    {{ quote.title }} - {{ quote.text }}</label>
+    <p><strong>{{ shipping_method.title }}</strong></p>
+  </label>
 </div>
+{% for service in shipping_method.services %}
+<div class="radio radio-service-type" style="margin-left: 20px">
+  <label>
+    <input type="radio" name="shipping_method_type" value="{{ service.service_id }}" />
+    <p>{{ service.short_name }}</p>
+  </label>
+</div>
+{% endfor %}
 {% endfor %}
 {% else %}
 <div class="alert alert-danger alert-dismissible">{{ shipping_method.error }}</div>

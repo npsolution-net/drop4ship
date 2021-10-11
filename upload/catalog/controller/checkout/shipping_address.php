@@ -53,7 +53,6 @@ class ControllerCheckoutShippingAddress extends Controller {
 		} else {
 			$data['shipping_address_custom_field'] = array();
 		}
-		
 		$this->response->setOutput($this->load->view('checkout/shipping_address', $data));
 	}
 
@@ -61,7 +60,6 @@ class ControllerCheckoutShippingAddress extends Controller {
 		$this->load->language('checkout/checkout');
 		
 		$json = array();
-
 		// Validate if customer is logged in.
 		if (!$this->customer->isLogged()) {
 			$json['redirect'] = $this->url->link('checkout/checkout', '', true);
