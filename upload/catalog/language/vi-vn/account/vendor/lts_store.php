@@ -36,7 +36,10 @@ $_['entry_fax']					= 'Fax';
 
 $_['entry_country']				= 'Quốc gia';
 $_['entry_state']				= 'Tỉnh/Thành phố';
-$_['entry_city']				= 'Khu vực';
+$_['entry_city']				= 'Tỉnh/Thành phố';
+$_['entry_province']			= 'Thành phố/Tỉnh';
+$_['entry_district']			= 'Quận/Huyện';
+$_['entry_ward']				= 'Phường/Xã';
 
 $_['entry_facebook']			= 'Facebook';
 $_['entry_instagram']			= 'Instagram';

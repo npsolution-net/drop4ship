@@ -166,7 +166,7 @@
                 <div class="tab-pane" id="tab-local">
 
                   <div class="form-group required">
-                    <label class="col-sm-2 control-label" for="input-name">{{ entry_country }}</label>
+                    <label class="col-sm-2 control-label" for="input-country">{{ entry_country }}</label>
                     <div class="col-sm-10">
                       <select name="country_id" id="input-payment-country" class="form-control">
                         <option value="">{{ text_select }}</option>
@@ -174,7 +174,7 @@
                           {% if country.country_id == country_id %}
                             <option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
                           {% else %}
-                            <option value="{{ country.country_id }}">{{ country.name }}</option>
+                            <option value="{{ country.country_id }}" disabled>{{ country.name }}</option>
                           {% endif %}
                         {% endfor %}
                       </select>
@@ -185,26 +185,48 @@
                   </div> 
    
                   <div class="form-group required">
-                    <label class="col-sm-2 control-label" for="input-name">{{ entry_state }}</label>
+                    <label class="col-sm-2 control-label" for="input-province">{{ entry_province }}</label>
                     <div class="col-sm-10">
-                      <select name="zone_id" id="input-payment-zone" class="form-control">
+                      <select name="zone_id" id="input-province" class="form-control">
                       </select>
-                      {% if error_zone %}  
-                        <div class="text-danger">{{ error_zone }}</div>
+                      {% if error_province %}  
+                        <div class="text-danger">{{ error_province }}</div>
                       {% endif %}
                     </div>
                   </div> 
-
 
                   <div class="form-group required">
-                    <label class="col-sm-2 control-label" for="input-name">{{ entry_city }}</label>
+                    <label class="col-sm-2 control-label" for="input-district">{{ entry_district }}</label>
                     <div class="col-sm-10">
-                      <input type="text" name="city" class="form-control" value="{{ city }}" placeholder="{{ entry_city }}">
-                      {% if error_city %}  
-                        <div class="text-danger">{{ error_city }}</div>
+                      <select name="district_id" id="input-district" class="form-control">
+                      </select>
+                      {% if error_district %}  
+                        <div class="text-danger">{{ error_district }}</div>
                       {% endif %}
                     </div>
-                  </div> 
+                  </div>
+
+                  <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-ward">{{ entry_ward }}</label>
+                    <div class="col-sm-10">
+                      <select name="ward_id" id="input-ward" class="form-control">
+                      </select>
+                      {% if error_ward %}  
+                        <div class="text-danger">{{ error_ward }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="form-group required">
+                    {# <label class="col-sm-2 control-label" for="input-city">{{ entry_city }}</label> #}
+                    <div class="col-sm-10">
+                     <input type="hidden" name="city" />
+                      {# <input type="text" name="city" class="form-control" value="{{ city }}" placeholder="{{ entry_city }}"> #}
+                      {# {% if error_city %}  
+                        <div class="text-danger">{{ error_city }}</div>
+                      {% endif %} #}
+                    </div>
+                  </div>                   
                 </div> 
                 <div class="tab-pane" id="tab-image">
 
@@ -331,39 +353,82 @@
       </div>
     </div>  
   </div>
-    <script type="text/javascript"><!--
-$('select[name=\'country_id\']').on('change', function () {
-        $.ajax({
-          url: 'index.php?route=account/vendor/lts_store/country&country_id=' + this.value,
-          dataType: 'json',
-
-          success: function (json) {
-            html = '<option value="">{{ text_select }}</option>';
-            if (json['zone'] && json['zone'] != '') {
-              for (i = 0; i < json['zone'].length; i++) {
-                html += '<option value="' + json['zone'][i]['zone_id'] + '"';
-
-                if (json['zone'][i]['zone_id'] == '{{ zone_id }}') {
-                  html += ' selected="selected"';
-                }
-
-                html += '>' + json['zone'][i]['name'] + '</option>';
-              }
-            } else {
-              html += '<option value="0" selected="selected">{{ text_none }}</option>';
-            }
-            $('select[name=\'zone_id\']').html(html);
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-        });
-      });
-
-      $('select[name=\'country_id\']').trigger('change');
-
-      //--></script>
-
-  </div>
+</div>
 
 {{ footer }} 
+
+<script type="text/javascript"><!--
+$('select[name=\'country_id\']').on('change', function () {
+  $.ajax({
+    url: 'index.php?route=account/vendor/lts_store/country&country_id=' + this.value,
+    dataType: 'json',
+    success: function (json) {
+      html = '<option value="">{{ text_select }}</option>';
+      for (i = 0; i < json.length; i++) {
+        if (json[i].province_id == '{{ zone_id }}'){
+          html += '<option value="' + json[i].province_id + '"  selected="selected>' + json[i].name + '</option>';
+        } else {
+          html += '<option value="'+ json[i].province_id + '">' + json[i].name + '</option>';
+        }
+      }
+      $('select[name=\'zone_id\']').html(html);
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+
+
+$('select[name=\'zone_id\']').on('change', function () {
+  value = this.value;  
+  $.ajax({
+    url: 'index.php?route=account/vendor/lts_store/province&province_id=' + (this.value ? this.value : '{{ zone_id }}'),
+    dataType: 'json',
+    success: function (json) {
+      html = '<option value="">{{ text_select }}</option>';
+      for (i = 0; i < json.length; i++) {
+        if (json[i].DistrictID == ('{{ district_id }}')){
+          html += '<option value="' + json[i].DistrictID + '"  selected="selected>' + json[i].DistrictName + '</option>';
+        } else {
+          html += '<option value="'+ json[i].DistrictID + '">' + json[i].DistrictName + '</option>';
+        }
+      }
+
+      $('select[name=\'district_id\']').html(html);
+      $('input[name=\'city\']').val(value ? value : '{{ zone_id }}');
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+
+
+$('select[name=\'district_id\']').on('change', function () {
+  $.ajax({
+    url: 'index.php?route=account/vendor/lts_store/district&district_id=' + (this.value ? this.value : '{{ district_id }}'),
+    dataType: 'json',
+    success: function (json) {
+      html = '<option value="">{{ text_select }}</option>';
+      for (i = 0; i < json.length; i++) {
+        if (json[i].WardCode == ('{{ ward_id }}')){
+          html += '<option value="' + json[i].WardCode + '"  selected="selected>' + json[i].WardName + '</option>';
+        } else {
+          html += '<option value="'+ json[i].WardCode + '">' + json[i].WardName + '</option>';
+        }
+      }
+      $('select[name=\'ward_id\']').html(html);
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+
+$('select[name=\'country_id\']').trigger('change');
+$('select[name=\'zone_id\']').trigger('change');
+$('select[name=\'district_id\']').trigger('change');
+
+
+  //--></script>

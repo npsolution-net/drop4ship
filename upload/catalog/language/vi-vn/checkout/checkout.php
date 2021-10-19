@@ -39,7 +39,7 @@ $_['text_week']                      = 'hàng tuần';
 $_['text_semi_month']                = 'nửa tháng';
 $_['text_month']                     = 'hàng tháng';
 $_['text_year']                      = 'hàng năm';
-
+$_['text_Cash On Delivery']          = 'Thu tiền khi giao hàng';
 // Column
 $_['column_name']                    = 'Tên sản phẩm';
 $_['column_model']                   = 'Mã hàng';
@@ -67,6 +67,9 @@ $_['entry_country']                  = 'Quốc Gia:';
 $_['entry_zone']                     = 'Vùng / Tiểu Bang:';
 $_['entry_newsletter']               = 'Tôi muốn đăng kí nhận bản tin %s .';
 $_['entry_shipping'] 	             = 'Địa chỉ nhận hàng và địa chỉ thanh toán của tôi giống nhau.';
+$_['entry_province']			     = 'Thành phố/Tỉnh';
+$_['entry_district']			     = 'Quận/Huyện';
+$_['entry_ward']				     = 'Phường/Xã';
 
 // Error
 $_['error_warning']                  = 'Có lỗi khi xử lý đơn hàng của bạn! Nếu lỗi vẫn tồn tại vui lòng chọn phương thức thanh toán khác hoặc bạn có thể liên hệ quản lý gian hàng bằng cách <a href="%s">bấm vào đây</a>.';

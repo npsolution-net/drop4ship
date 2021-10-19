@@ -10,8 +10,17 @@ class ControllerCheckoutShippingAddress extends Controller {
 		}
 
 		$this->load->model('account/address');
+		$this->load->model('account/vendor/lts_vendor');
 
-		$data['addresses'] = $this->model_account_address->getAddresses();
+		$addresses = $this->model_account_address->getAddresses();
+		
+		foreach($addresses as $address){			
+			$address['zone'] = $this->model_account_vendor_lts_vendor->getProvinceById($address['zone_id']);
+			$address['district']  = $this->model_account_vendor_lts_vendor->getDistrictById($address['zone_id'], $address['district_id']);
+			$address['ward']  = $address['ward_id'];
+
+			$data['addresses'][] = $address;
+		}
 
 		if (isset($this->session->data['shipping_address']['postcode'])) {
 			$data['postcode'] = $this->session->data['shipping_address']['postcode'];

@@ -165,6 +165,12 @@ Please read the installation instructions included in the repository or download
     ALTER TABLE `oc_shipping_courier` ADD shipping_courier_type tinyint(1);
     ALTER TABLE `oc_shipping_courier` ADD shipping_courier_active tinyint(1);
     ALTER TABLE `oc_shipping_courier` ADD shipping_courier_shop_id varchar(255);
+    ALTER TABLE `oc_lts_vendor` ADD district_id varchar(255) AFTER `zone_id`;
+    ALTER TABLE `oc_lts_vendor` ADD ward_id varchar(255) AFTER `zone_id`;
+    ALTER TABLE `oc_address` ADD district_id varchar(255) AFTER `zone_id`;
+    ALTER TABLE `oc_address` ADD ward_id varchar(255) AFTER `zone_id`;
+    ALTER TABLE `oc_address` ADD telephone varchar(32) AFTER `lastname`;
+
     INSERT INTO `oc_shipping_courier`(`shipping_courier_code`,`shipping_courier_name`,`shipping_courier_url`,`shipping_courier_token`,`shipping_courier_type`,`shipping_courier_active`) VALUES 
         ('ghn','Giao hàng nhanh','https://online-gateway.ghn.vn/shiip/public-api/v2','73d882a6-ec7a-11eb-9389-f656af98cb33',1,0),
         ('ghn','Giao hàng nhanh','https://dev-online-gateway.ghn.vn/shiip/public-api/v2','615c1360-ec80-11eb-9388-d6e0030cbbb7',0,1);
@@ -173,38 +179,7 @@ Please read the installation instructions included in the repository or download
     --
     -- Table structure for table
     --
-    DROP TABLE IF EXISTS `oc_zone_province`;
-    CREATE TABLE `oc_zone_province` (
-    `province_id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,  
-    `code` varchar(255) NOT NULL,
-    `country_id` int(11) NOT NULL,
-    PRIMARY KEY (`province_id`),
-    UNIQUE (`code`,`country_id`),
-    FOREIGN KEY (`country_id`) REFERENCES `oc_country`(`country_id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-    DROP TABLE IF EXISTS `oc_zone_district`;
-    CREATE TABLE `oc_zone_district` (
-    `district_id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,  
-    `code` varchar(255) NOT NULL,
-    `province_id` int(11) NOT NULL,
-    PRIMARY KEY (`district_id`),
-    UNIQUE (`code`,`province_id`),
-    FOREIGN KEY (`province_id`) REFERENCES `oc_zone_province`(`province_id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-    DROP TABLE IF EXISTS `oc_zone_ward`;
-    CREATE TABLE `oc_zone_ward` (
-    `ward_id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,  
-    `code` varchar(255) NOT NULL,
-    `district_id` int(11) NOT NULL,
-    PRIMARY KEY (`ward_id`),
-    UNIQUE (`code`,`district_id`),
-    FOREIGN KEY (`district_id`) REFERENCES `oc_district`(`district_id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+    
 
     DROP TABLE IF EXISTS `oc_dropship_group`;
     CREATE TABLE `oc_dropship_group` (

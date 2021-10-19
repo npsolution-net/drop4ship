@@ -9,9 +9,9 @@
     <select name="address_id" class="form-control">
      {% for address in addresses %}
       {% if address['address_id'] == address_id %}
-      <option value="{{ address.address_id }}" selected="selected">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}, {{ address.country }}</option>
+      <option value="{{ address.address_id }}" selected="selected">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.ward }}, {{ address.district.name }}, {{ address.zone.name }}</option>
       {% else %}
-      <option value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}, {{ address.country }}</option>
+      <option value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.ward }}, {{ address.district.name }}, {{ address.zone.name }}</option>
       {% endif %}
       {% endfor %}
     </select>
@@ -36,36 +36,22 @@
         <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-payment-lastname" class="form-control" />
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="input-payment-company">{{ entry_company }}</label>
-      <div class="col-sm-10">
-        <input type="text" name="company" value="" placeholder="{{ entry_company }}" id="input-payment-company" class="form-control" />
-      </div>
-    </div>
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-payment-address-1">{{ entry_address_1 }}</label>
       <div class="col-sm-10">
         <input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}" id="input-payment-address-1" class="form-control" />
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="input-payment-address-2">{{ entry_address_2 }}</label>
-      <div class="col-sm-10">
-        <input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}" id="input-payment-address-2" class="form-control" />
-      </div>
-    </div>
-    <div class="form-group required">
+    <input type="hidden" name="address_2" />
+    <input type="hidden" name="company" />
+    <input type="hidden" name="city" />
+    <input type="hidden" name="postcode" />
+    {# <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-payment-city">{{ entry_city }}</label>
       <div class="col-sm-10">
         <input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-payment-city" class="form-control" />
       </div>
-    </div>
-    <div class="form-group required">
-      <label class="col-sm-2 control-label" for="input-payment-postcode">{{ entry_postcode }}</label>
-      <div class="col-sm-10">
-        <input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}" id="input-payment-postcode" class="form-control" />
-      </div>
-    </div>
+    </div>     #}
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-payment-country">{{ entry_country }}</label>
       <div class="col-sm-10">
@@ -75,17 +61,47 @@
           {% if country.country_id == country_id %}
           <option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
           {% else %}
-          <option value="{{ country.country_id }}">{{ country.name }}</option>
+          <option value="{{ country.country_id }}" disabled>{{ country.name }}</option>
           {% endif %}
           {% endfor %}
         </select>
       </div>
     </div>
-    <div class="form-group required">
+    {# <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-payment-zone">{{ entry_zone }}</label>
       <div class="col-sm-10">
         <select name="zone_id" id="input-payment-zone" class="form-control">
         </select>
+      </div>
+    </div> #}
+    <div class="form-group required">
+      <label class="col-sm-2 control-label" for="input-province">{{ entry_province }}</label>
+      <div class="col-sm-10">
+        <select name="zone_id" id="input-province" class="form-control">
+        </select>
+        {% if error_province %}  
+          <div class="text-danger">{{ error_province }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-group required">
+      <label class="col-sm-2 control-label" for="input-district">{{ entry_district }}</label>
+      <div class="col-sm-10">
+        <select name="district_id" id="input-district" class="form-control">
+        </select>
+        {% if error_district %}  
+          <div class="text-danger">{{ error_district }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-group required">
+      <label class="col-sm-2 control-label" for="input-ward">{{ entry_ward }}</label>
+      <div class="col-sm-10">
+        <select name="ward_id" id="input-ward" class="form-control">
+        </select>
+        {% if error_ward %}  
+          <div class="text-danger">{{ error_ward }}</div>
+        {% endif %}
       </div>
     </div>
     {% for custom_field in custom_fields %}
@@ -274,8 +290,6 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
 					}
 
 					if (json['success']) {
-						alert(json['success']);
-
 						$(element).parent().find('input[name^=\'custom_field\']').val(json['code']);
 					}
 				},
@@ -305,6 +319,7 @@ $('.datetime').datetimepicker({
 });
 //--></script>
 <script type="text/javascript"><!--
+
 $('#collapse-payment-address select[name=\'country_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
@@ -316,28 +331,24 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 			$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', false);
 		},
 		success: function(json) {
-			if (json['postcode_required'] == '1') {
+			/*if (json['postcode_required'] == '1') {
 				$('#collapse-payment-address input[name=\'postcode\']').parent().parent().addClass('required');
 			} else {
 				$('#collapse-payment-address input[name=\'postcode\']').parent().parent().removeClass('required');
-			}
-
-			html = '<option value="">{{ text_select }}</option>';
-
-			if (json['zone'] && json['zone'] != '') {
-				for (i = 0; i < json['zone'].length; i++) {
-					html += '<option value="' + json['zone'][i]['zone_id'] + '"';
-
-					if (json['zone'][i]['zone_id'] == '{{ zone_id }}') {
-						html += ' selected="selected"';
-					}
-
-					html += '>' + json['zone'][i]['name'] + '</option>';
-				}
-			} else {
+			}*/
+      if (json && json.length > 0) {
+        html = '<option value="">{{ text_select }}</option>';
+        for (i = 0; i < json.length; i++) {
+          if (json[i].province_id == '{{ zone_id }}'){
+            html += '<option value="' + json[i].province_id + '" selected>' + json[i].name + '</option>';
+          } else {
+            html += '<option value="'+ json[i].province_id + '">' + json[i].name + '</option>';
+          }
+        }
+      } else {
 				html += '<option value="0" selected="selected">{{ text_none }}</option>';
 			}
-
+     
 			$('#collapse-payment-address select[name=\'zone_id\']').html(html);
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
@@ -346,5 +357,55 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 	});
 });
 
+$('#collapse-payment-address select[name=\'zone_id\']').on('change', function () {
+  value = this.value;  
+  $.ajax({
+    url: 'index.php?route=checkout/checkout/province&province_id=' + (this.value ? this.value : '{{ zone_id }}'),
+    dataType: 'json',
+    success: function (json) {
+      html = '<option value="">{{ text_select }}</option>';
+      for (i = 0; i < json.length; i++) {
+        if (json[i].district_id == ('{{ district_id }}')){
+          html += '<option value="' + json[i].district_id + '" selected>' + json[i].name + '</option>';
+        } else {
+          html += '<option value="'+ json[i].district_id + '">' + json[i].name + '</option>';
+        }
+      }
+
+      $('#collapse-payment-address select[name=\'district_id\']').html(html);
+      $('#collapse-payment-address input[name=\'city\']').val(value ? value : '{{ zone_id }}');
+      $('#collapse-payment-address input[name=\'postcode\']').val(value ? value : '{{ zone_id }}');
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+
+
+$('#collapse-payment-address select[name=\'district_id\']').on('change', function () {
+  $.ajax({
+    url: 'index.php?route=checkout/checkout/district&district_id=' + (this.value ? this.value : '{{ district_id }}'),
+    dataType: 'json',
+    success: function (json) {
+      html = '<option value="">{{ text_select }}</option>';
+      for (i = 0; i < json.length; i++) {
+        if (json[i].WardCode == ('{{ ward_id }}')){
+          html += '<option value="' + json[i].name + '" selected>' + json[i].name + '</option>';
+        } else {
+          html += '<option value="'+ json[i].name + '">' + json[i].name + '</option>';
+        }
+      }
+      $('#collapse-payment-address select[name=\'ward_id\']').html(html);
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+
 $('#collapse-payment-address select[name=\'country_id\']').trigger('change');
+$('#collapse-payment-address select[name=\'zone_id\']').trigger('change');
+$('#collapse-payment-address select[name=\'district_id\']').trigger('change');
+
 //--></script>

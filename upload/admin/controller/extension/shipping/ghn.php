@@ -106,9 +106,13 @@ class ControllerExtensionShippingGhn extends Controller {
 	}
 
 	public function install() {
+		$this->load->model('extension/shipping/ghn');
+		$this->model_extension_shipping_ghn->install();
 	}
 
 	public function uninstall() {
+		$this->load->model('extension/shipping/ghn');
+		$this->model_extension_shipping_ghn->uninstall();
 	}
 
 	public function createOrder() {

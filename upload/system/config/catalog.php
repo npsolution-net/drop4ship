@@ -71,15 +71,15 @@ $_['customer_group']            = array(
 $_['ghn_shipping_api'] = array(
 	'shop_id' => 81552,
 	'develop' => array(
-		'url' 	=> 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2',
+		'url' 	=> 'https://dev-online-gateway.ghn.vn/shiip/public-api',
 		'token' => '615c1360-ec80-11eb-9388-d6e0030cbbb7'
 	),
 	'live' => array(
-		'url' 	=> 'https://online-gateway.ghn.vn/shiip/public-api/v2',
+		'url' 	=> 'https://online-gateway.ghn.vn/shiip/public-api',
 		'token' => '73d882a6-ec7a-11eb-9389-f656af98cb33'
 	),
 	'service_type' => array(
-		'', 'fast', 'standard', 'saving'
+		'', 'express', 'standard', 'saving'
 
 	)
 );

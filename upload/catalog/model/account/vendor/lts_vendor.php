@@ -5,7 +5,7 @@ class ModelAccountVendorLtsVendor extends Model {
 
 		if($query->row) {
 
-			$sql = "UPDATE ". DB_PREFIX ."lts_vendor SET description =  '". $this->db->escape($data['meta_description']) ."' , meta_title = '". $this->db->escape($data['meta_title']) ."', meta_description = '". $this->db->escape($data['meta_description']) ."',  meta_keyword = '". $this->db->escape($data['meta_keyword']) ."', store_owner = '" . $this->db->escape($data['store_owner']) . "', store_name= '" . $this->db->escape($data["store_name"]) . "' , address = '" . $this->db->escape($data['address']) . "' , email= '" . $this->db->escape($data['email']) . "' , telephone= '" . $this->db->escape($data['telephone']) . "' ,  fax= '" . $this->db->escape($data['fax']) . "' ,  country_id= '" . (int)$data['country_id'] . "' ,   zone_id= '" . $this->db->escape($data['zone_id']) . "' ,  city= '" . $this->db->escape($data['city']) . "', logo= '" . $this->db->escape($data['logo']) . "',  banner= '" . $this->db->escape($data['banner']) . "',  profile_image= '" . $this->db->escape($data['profile_image']) . "',  facebook= '" . $this->db->escape($data['facebook']) . "', instagram= '" . $this->db->escape($data['instagram']) . "', youtube= '" . $this->db->escape($data['youtube']) . "', twitter= '" . $this->db->escape($data['twitter']) . "', pinterest= '" . $this->db->escape($data['pinterest']) . "' WHERE vendor_id = '". (int)$query->row['vendor_id'] ."' AND customer_id = '". (int)$this->customer->isLogged() ."' AND status = '1'";
+			$sql = "UPDATE ". DB_PREFIX ."lts_vendor SET description =  '". $this->db->escape($data['meta_description']) ."' , meta_title = '". $this->db->escape($data['meta_title']) ."', meta_description = '". $this->db->escape($data['meta_description']) ."',  meta_keyword = '". $this->db->escape($data['meta_keyword']) ."', store_owner = '" . $this->db->escape($data['store_owner']) . "', store_name= '" . $this->db->escape($data["store_name"]) . "' , address = '" . $this->db->escape($data['address']) . "' , email= '" . $this->db->escape($data['email']) . "' , telephone= '" . $this->db->escape($data['telephone']) . "' ,  fax= '" . $this->db->escape($data['fax']) . "' ,  country_id= '" . (int)$data['country_id'] . "' ,   zone_id= '" . $this->db->escape($data['zone_id']) . "' , district_id= '" . $this->db->escape($data['district_id']) . "', ward_id= '" . $this->db->escape($data['ward_id']) . "', city= '" . $this->db->escape($data['city']) . "', logo= '" . $this->db->escape($data['logo']) . "',  banner= '" . $this->db->escape($data['banner']) . "',  profile_image= '" . $this->db->escape($data['profile_image']) . "',  facebook= '" . $this->db->escape($data['facebook']) . "', instagram= '" . $this->db->escape($data['instagram']) . "', youtube= '" . $this->db->escape($data['youtube']) . "', twitter= '" . $this->db->escape($data['twitter']) . "', pinterest= '" . $this->db->escape($data['pinterest']) . "' WHERE vendor_id = '". (int)$query->row['vendor_id'] ."' AND customer_id = '". (int)$this->customer->isLogged() ."' AND status = '1'";
 
 			$this->db->query($sql);
 
@@ -149,5 +149,41 @@ class ModelAccountVendorLtsVendor extends Model {
          $query = $this->db->query("SELECT vendor_id FROM `" . DB_PREFIX . "lts_vendor`  WHERE  customer_id = '" . (int)$customer_id . "'");
         
 		  return $query->row['vendor_id']?$query->row['vendor_id']:0;
+	}
+
+	public  function getProvinces($country_id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_province`  WHERE  country_id = '" . (int)$country_id . "' ORDER BY name ASC");
+        
+		return $query->rows;
+	}
+
+	public function getProvinceById($zone_id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_province`  WHERE  province_id = '" . (int)$zone_id . "'");
+		
+		return count($query->rows) > 0 ? $query->rows[0] : NULL;
+	}
+
+	public  function getDistrictsByProvince($province_id){
+		$query = $this->db->query("SELECT * FROM ". DB_PREFIX ."zone_district WHERE province_id = '" . (int)$province_id  . "'  ORDER BY name ASC");
+
+		return count($query->rows) > 0 ? $query->rows : NULL;
+	}
+
+	public function getDistrictById($province_id, $district_id){
+		$query = $this->db->query("SELECT * FROM ". DB_PREFIX ."zone_district WHERE district_id = '". (int)$district_id ."' AND province_id = '" . (int)$province_id  . "'");
+		
+		return $query->row;
+	}
+
+	public  function getWardsByDistrict($district_id){
+		$query = $this->db->query("SELECT * FROM ". DB_PREFIX ."zone_ward WHERE district_id = '" . (int)$district_id  . "' ORDER BY name ASC");
+
+		return count($query->rows) > 0 ? $query->rows : NULL;
+	}
+
+	public function getWardById($district_id, $ward_id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_ward`  WHERE  name = '" . (int)$ward_id . "' AND district_id = '" . (int)$district_id . "'");
+		
+		return count($query->rows) > 0 ? $query->row : NULL;
 	}
 }

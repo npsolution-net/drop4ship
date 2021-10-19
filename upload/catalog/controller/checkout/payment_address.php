@@ -10,19 +10,41 @@ class ControllerCheckoutPaymentAddress extends Controller {
 		}
 
 		$this->load->model('account/address');
+		$this->load->model('account/vendor/lts_vendor');
 
-		$data['addresses'] = $this->model_account_address->getAddresses();
+		$addresses = $this->model_account_address->getAddresses();
+
+		foreach($addresses as $address){			
+			$address['zone'] = $this->model_account_vendor_lts_vendor->getProvinceById($address['zone_id']);
+			$address['district']  = $this->model_account_vendor_lts_vendor->getDistrictById($address['zone_id'], $address['district_id']);
+			$address['ward']  = $address['ward_id'];
+
+			$data['addresses'][] = $address;
+		}		
 
 		if (isset($this->session->data['payment_address']['country_id'])) {
 			$data['country_id'] = $this->session->data['payment_address']['country_id'];
 		} else {
-			$data['country_id'] = $this->config->get('config_country_id');
+			// $data['country_id'] = $this->config->get('config_country_id');
+			$data['country_id'] = 230;
 		}
 
 		if (isset($this->session->data['payment_address']['zone_id'])) {
 			$data['zone_id'] = $this->session->data['payment_address']['zone_id'];
 		} else {
-			$data['zone_id'] = '';
+			$data['zone_id'] = 230;
+		}
+
+		if (isset($this->session->data['payment_address']['district_id'])) {
+			$data['district_id'] = $this->session->data['payment_address']['district_id'];
+		} else {
+			$data['district_id'] = '';
+		}
+
+		if (isset($this->session->data['payment_address']['ward_id'])) {
+			$data['ward_id'] = $this->session->data['payment_address']['ward_id'];
+		} else {
+			$data['ward_id'] = '';
 		}
 
 		$this->load->model('localisation/country');

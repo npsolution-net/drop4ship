@@ -2,6 +2,14 @@
 <div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
 {% endif %}
 {% if shipping_methods %}
+<div>
+<b>From:</b> {{vendor.address}}, {{vendor.ward}}, {{vendor.district.name}}, {{vendor.zone.name}}
+</div>
+<br>
+<div>
+<b>To:</b> {{shipping.address_1}}, {{shipping.ward}}, {{shipping.district.name}}, {{shipping.zone.name}}
+</div>
+<br>
 <p>{{ text_shipping_method }}</p>
 {% for shipping_method in shipping_methods %}
 {# <p><strong>{{ shipping_method.title }}</strong></p> #}
@@ -20,8 +28,13 @@
 {% for service in shipping_method.services %}
 <div class="radio radio-service-type" style="margin-left: 20px">
   <label>
-    <input type="radio" name="shipping_method_type" value="{{ service.service_id }}" />
-    <p>{{ service.short_name }}</p>
+    {% if service.cost %}
+      <input type="radio" name="shipping_method_type" value="{{ service.service_id }}" />
+      <p>{{ service.short_name }} - {{ text_cost }} <b>{{service.cost.total}}</b></p>
+    {% else %}
+      <input type="radio" name="shipping_method_type" value="{{ service.service_id }}" disabled/>
+      <p>{{ service.short_name }} - {{ text_not_support }}</p>
+    {% endif %}
   </label>
 </div>
 {% endfor %}

@@ -37,6 +37,9 @@ $_['entry_fax']					= 'Fax';
 $_['entry_country']				= 'Country';
 $_['entry_state']				= 'Region/State';
 $_['entry_city']				= 'City';
+$_['entry_province']			= 'Province';
+$_['entry_district']			= 'District';
+$_['entry_ward']				= 'Ward';
 
 $_['entry_facebook']			= 'Facebook';
 $_['entry_instagram']			= 'Instagram';

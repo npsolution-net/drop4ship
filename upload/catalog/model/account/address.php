@@ -1,7 +1,7 @@
 <?php
 class ModelAccountAddress extends Model {
 	public function addAddress($customer_id, $data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', company = '" . $this->db->escape($data['company']) . "', address_1 = '" . $this->db->escape($data['address_1']) . "', address_2 = '" . $this->db->escape($data['address_2']) . "', postcode = '" . $this->db->escape($data['postcode']) . "', city = '" . $this->db->escape($data['city']) . "', zone_id = '" . (int)$data['zone_id'] . "', country_id = '" . (int)$data['country_id'] . "', custom_field = '" . $this->db->escape(isset($data['custom_field']['address']) ? json_encode($data['custom_field']['address']) : '') . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "address SET customer_id = '" . (int)$customer_id . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', company = '" . $this->db->escape($data['company']) . "', address_1 = '" . $this->db->escape($data['address_1']) . "', address_2 = '" . $this->db->escape($data['address_2']) . "', postcode = '" . $this->db->escape($data['postcode']) . "', city = '" . $this->db->escape($data['city']) . "', zone_id = '" . (int)$data['zone_id'] . "', country_id = '" . (int)$data['country_id'] . "', district_id = '" . $this->db->escape($data['district_id']) . "', ward_id = '" . $this->db->escape($data['ward_id']) . "', custom_field = '" . $this->db->escape(isset($data['custom_field']['address']) ? json_encode($data['custom_field']['address']) : '') . "'");
 
 		$address_id = $this->db->getLastId();
 
@@ -10,6 +10,16 @@ class ModelAccountAddress extends Model {
 		}
 
 		return $address_id;
+	}
+
+	public function getVendorAddress($customer_id){
+		$query = $this->db->query("SELECT DISTINCT lv.*, cg.customer_group_id, dg.customer_id as dropship_id FROM " . DB_PREFIX . "lts_vendor lv INNER JOIN " . DB_PREFIX . "customer_group cg ON lv.customer_id = cg.owner_id INNER JOIN " . DB_PREFIX . "dropship_group dg ON cg.customer_group_id = dg.customer_group_id WHERE dg.customer_id = '" . $customer_id . "'");
+		$address = array();
+		if(count($query->rows) > 0){
+			$address = $query->rows[0];
+			
+		}
+		return $address;
 	}
 
 	public function editAddress($address_id, $data) {
@@ -66,6 +76,8 @@ class ModelAccountAddress extends Model {
 				'postcode'       => $address_query->row['postcode'],
 				'city'           => $address_query->row['city'],
 				'zone_id'        => $address_query->row['zone_id'],
+				'district_id'    => $address_query->row['district_id'],
+				'ward_id'        => $address_query->row['ward_id'],
 				'zone'           => $zone,
 				'zone_code'      => $zone_code,
 				'country_id'     => $address_query->row['country_id'],
@@ -122,6 +134,8 @@ class ModelAccountAddress extends Model {
 				'postcode'       => $result['postcode'],
 				'city'           => $result['city'],
 				'zone_id'        => $result['zone_id'],
+				'district_id'    => $result['district_id'],
+				'ward_id'        => $result['ward_id'],
 				'zone'           => $zone,
 				'zone_code'      => $zone_code,
 				'country_id'     => $result['country_id'],

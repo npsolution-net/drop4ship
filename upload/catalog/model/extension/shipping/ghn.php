@@ -80,4 +80,42 @@ class ModelExtensionShippingGhn extends Model {
 		curl_close($curl);
 		return json_decode($result);
 	}
+
+	public function getEstimateCost($service_id, $service_type_id, $vendor, $shipping){
+		$api = $this->config->get("ghn_shipping_api");
+		$ward_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_ward WHERE name = '" . $shipping['ward_id'] . "' AND district_id = '" . $shipping['district_id'] . "'");
+
+		$curl = curl_init();
+		$data = json_encode(array(			
+			"shop_id" => (int)$api['shop_id'],
+			"from_district_id"=> (int)$vendor['district_id'],
+			"service_id"=>(int)$service_id,
+			"service_type_id"=>null,
+			"to_district_id"=>(int)$shipping['district_id'],
+			"to_ward_code"=>$ward_query->row['ward_id'],
+			"height"=>1,
+			"length"=>10,
+			"weight"=>100,
+			"width"=>5,
+			"insurance_fee"=>10000,
+			"coupon"=> null
+		));
+		
+		curl_setopt($curl, CURLOPT_URL, $api['develop']['url'] . "/v2/shipping-order/fee");
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array( 
+			"Content-Type: application/json",
+			"Token: ". $api['develop']['token'],
+		));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+		$result = json_decode(curl_exec($curl));
+		curl_close($curl);
+
+		if($result && $result->data && $result->code == 200)
+			return $result->data;
+
+		return null;
+	}
 }

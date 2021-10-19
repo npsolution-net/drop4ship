@@ -99,26 +99,45 @@ class ControllerCheckoutCheckout extends Controller {
 		$json = array();
 
 		$this->load->model('localisation/country');
+		$this->load->model('account/vendor/lts_vendor');
 
-		$country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
+		$provinces = array();
 
-		if ($country_info) {
-			$this->load->model('localisation/zone');
-
-			$json = array(
-				'country_id'        => $country_info['country_id'],
-				'name'              => $country_info['name'],
-				'iso_code_2'        => $country_info['iso_code_2'],
-				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
-				'postcode_required' => $country_info['postcode_required'],
-				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-				'status'            => $country_info['status']
-			);
-		}
-
+		if($this->request->get['country_id'])
+		$provinces = $this->model_account_vendor_lts_vendor->getProvinces($this->request->get['country_id']);    
+		
 		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($provinces));		
+	}
+
+	public function province() {
+		$json = array();
+	
+		$this->load->model('localisation/country');
+		$this->load->model('account/vendor/lts_vendor');
+	
+		$districts = array();
+	
+		if($this->request->get['province_id'])
+		  $districts = $this->model_account_vendor_lts_vendor->getDistrictsByProvince($this->request->get['province_id']);    
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($districts));
+	  }
+	
+	public function district() {
+		$json = array();
+
+		$this->load->model('localisation/country');
+		$this->load->model('account/vendor/lts_vendor');
+
+		$wards = array();
+
+		if($this->request->get['district_id'])
+			$wards = $this->model_account_vendor_lts_vendor->getWardsByDistrict($this->request->get['district_id']);    
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($wards));
 	}
 
 	public function customfield() {

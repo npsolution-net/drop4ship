@@ -8,9 +8,27 @@ class ControllerCheckoutShippingMethod extends Controller {
 			$method_data = array();
 
 			$this->load->model('setting/extension');
+			$this->load->model('account/address');
+			$this->load->model('account/vendor/lts_vendor');
 
 			$results = $this->model_setting_extension->getExtensions('shipping');	
-	
+			$shipping_address = $this->session->data['shipping_address'];
+			$vendor_address = $this->model_account_address->getVendorAddress($this->customer->getId());
+
+			if(count($vendor_address) > 0){
+				$data['vendor'] = $vendor_address;
+				$data['vendor']['zone'] = $this->model_account_vendor_lts_vendor->getProvinceById($data['vendor']['zone_id']);
+				$data['vendor']['district']  = $this->model_account_vendor_lts_vendor->getDistrictById($data['vendor']['zone_id'], $data['vendor']['district_id']);
+				$data['vendor']['ward']  = $data['vendor']['ward_id'];
+			}
+
+			if($shipping_address){
+				$data['shipping'] = $shipping_address;	
+				$data['shipping']['zone'] = $this->model_account_vendor_lts_vendor->getProvinceById($data['shipping']['zone_id']);
+				$data['shipping']['district']  = $this->model_account_vendor_lts_vendor->getDistrictById($data['shipping']['zone_id'], $data['shipping']['district_id']);
+				$data['shipping']['ward']  = $data['shipping']['ward_id'];
+			}
+
 			foreach ($results as $result) {
 				if ($this->config->get('shipping_' . $result['code'] . '_status')) {				
 		
@@ -27,7 +45,14 @@ class ControllerCheckoutShippingMethod extends Controller {
 
 						foreach($shipping_services->data as $shipping_service){
 							$name = $keys[$shipping_service->service_type_id];
-							if($name){								
+							if($name){
+								$cost = $this->{'model_extension_shipping_' . $result['code']}->getEstimateCost($shipping_service->service_id, $shipping_service->service_type_id, $data['vendor'], $data['shipping']);
+
+								if($cost){
+									$cost->total = $this->currency->format($cost->total, $this->session->data['currency']);
+									$shipping_service->cost = $cost;
+								}
+
 								$shipping_service->short_name = $this->language->get('text_' . $name);
 								$services[] = $shipping_service;
 							}

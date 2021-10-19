@@ -39,7 +39,7 @@ $_['text_week']                      = 'week';
 $_['text_semi_month']                = 'half-month';
 $_['text_month']                     = 'month';
 $_['text_year']                      = 'year';
-
+$_['text_Cash On Delivery']          = 'Cash On Delivery';
 // Column
 $_['column_name']                    = 'Product Name';
 $_['column_model']                   = 'Model';
@@ -66,7 +66,9 @@ $_['entry_country']                  = 'Country';
 $_['entry_zone']                     = 'Region / State';
 $_['entry_newsletter']               = 'I wish to subscribe to the %s newsletter.';
 $_['entry_shipping']                 = 'My delivery and billing addresses are the same.';
-
+$_['entry_province']			     = 'Province';
+$_['entry_district']			     = 'District';
+$_['entry_ward']				     = 'Ward';
 // Error
 $_['error_warning']                  = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';
 $_['error_login']                    = 'Warning: No match for E-Mail Address and/or Password.';
